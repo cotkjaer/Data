@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F79384D1D06F853002FFAD1 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 8F79384C1D06F853002FFAD1 /* Cartfile.private */; };
 		8FA50D531CAC169F005D28B6 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 8FA50D521CAC169F005D28B6 /* Cartfile */; };
 		8FA50D551CAC17C0005D28B6 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D541CAC17C0005D28B6 /* Collections.framework */; };
 		8FA50D571CAC1C65005D28B6 /* Reflection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D561CAC1C65005D28B6 /* Reflection.framework */; };
@@ -94,6 +95,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F79384C1D06F853002FFAD1 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
+		8F79384E1D06F86F002FFAD1 /* carthage_update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = carthage_update.sh; sourceTree = "<group>"; };
 		8FA50D521CAC169F005D28B6 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		8FA50D541CAC17C0005D28B6 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
 		8FA50D561CAC1C65005D28B6 /* Reflection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reflection.framework; path = Carthage/Build/iOS/Reflection.framework; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				8FA50D561CAC1C65005D28B6 /* Reflection.framework */,
 				8FA50D541CAC17C0005D28B6 /* Collections.framework */,
 				8FA50D521CAC169F005D28B6 /* Cartfile */,
+				8F79384C1D06F853002FFAD1 /* Cartfile.private */,
+				8F79384E1D06F86F002FFAD1 /* carthage_update.sh */,
 				8FD41E971C74AB3E00DDE89D /* Data */,
 				8FD41EA31C74AB3F00DDE89D /* DataTests */,
 				8FE1D7141CAD827F00A8C681 /* DataDemo */,
@@ -389,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FA50D531CAC169F005D28B6 /* Cartfile in Resources */,
+				8F79384D1D06F853002FFAD1 /* Cartfile.private in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +724,7 @@
 				8FE1D7231CAD828000A8C681 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

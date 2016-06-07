@@ -3,6 +3,3 @@ github "cotkjaer/Reflection"
 github "cotkjaer/UserInterface"
 github "cotkjaer/Error"
 
-#for testing
-github "Quick/Quick"
-github "Quick/Nimble"
