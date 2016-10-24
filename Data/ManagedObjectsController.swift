@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import UserInterface
+import SwiftPlus
 
 public protocol ManagedObjectsController: ManagedObjectDetailControllerDelegate
 {
@@ -16,18 +16,18 @@ public protocol ManagedObjectsController: ManagedObjectDetailControllerDelegate
     
     // MARK: - Objects
     
-    func objectForIndexPath(optionalIndexPath: NSIndexPath?) -> NSManagedObject?
+    func objectForIndexPath(_ optionalIndexPath: IndexPath?) -> NSManagedObject?
     
-    func indexPathForObject(optionalObject: NSManagedObject?) -> NSIndexPath?
+    func indexPathForObject(_ optionalObject: NSManagedObject?) -> IndexPath?
     
-    func indexPathForObjectWithID(optionalID: NSManagedObjectID?) -> NSIndexPath?
+    func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
 }
 
 // MARK: - Navigation
 
 extension ManagedObjectsController 
 {
-    internal func prepareForSegue<CV:CellsView>(segue: UIStoryboardSegue, sender: AnyObject?, cellsView: CV?)
+    internal func prepareForSegue<CV:CellsView>(_ segue: UIStoryboardSegue, sender: Any?, cellsView: CV?)
     {
         var object : NSManagedObject? = nil
         
@@ -35,29 +35,30 @@ extension ManagedObjectsController
         {
             object = o
         }
+        
         if let cell = sender as? CV.Cell,
             let indexPath = cellsView?.indexPathForCell(cell)
         {
             object = objectForIndexPath(indexPath)
         }
-        else if let indexPath = sender as? NSIndexPath
+        else if let indexPath = sender as? IndexPath
         {
             object = objectForIndexPath(indexPath)
         }
         
-        if let controller = segue.destinationViewController as? ManagedObjectDetailController
+        if let controller = segue.destination as? ManagedObjectDetailController
         {
             prepareDetailController(controller, object: object)
         }
         
-        if let navController = segue.destinationViewController as? UINavigationController,
+        if let navController = segue.destination as? UINavigationController,
             let controller = navController.managedObjectDetailController
         {
             prepareDetailController(controller, object: object)
         }
     }
     
-    internal func prepareDetailController(detailController: ManagedObjectDetailController, object: NSManagedObject?)
+    internal func prepareDetailController(_ detailController: ManagedObjectDetailController, object: NSManagedObject?)
     {
         detailController.managedObjectDetailControllerDelegate = self
         detailController.managedObjectContext = managedObjectContext?.childContext()
@@ -71,18 +72,18 @@ extension ManagedObjectsController
 
 internal protocol FetchedResultsControllerDelegate
 {
-    func controllerWillChangeContent(controller: FetchedResultsController)
+    func controllerWillChangeContent(_ controller: FetchedResultsController)
     
-    func controllerDidChangeContent(controller: FetchedResultsController)
+    func controllerDidChangeContent(_ controller: FetchedResultsController)
     
-    func controller(controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: NSIndexPath)
-    func controller(controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: NSIndexPath)
-    func controller(controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: NSIndexPath)
-    func controller(controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
 
-    func controller(controller: FetchedResultsController, didInsertSection section: Int)
-    func controller(controller: FetchedResultsController, didDeleteSection section: Int)
-    func controller(controller: FetchedResultsController, didUpdateSection section: Int)
+    func controller(_ controller: FetchedResultsController, didInsertSection section: Int)
+    func controller(_ controller: FetchedResultsController, didDeleteSection section: Int)
+    func controller(_ controller: FetchedResultsController, didUpdateSection section: Int)
 }
 
 internal class FetchedResultsController : NSObject
@@ -93,9 +94,9 @@ internal class FetchedResultsController : NSObject
     
     var sectionNameKeyPath: String? { didSet { if oldValue != sectionNameKeyPath { updateFetchedResultsController() } } }
     
-    var fetchRequest: NSFetchRequest? { didSet { if oldValue != fetchRequest { updateFetchedResultsController() } } }
+    var fetchRequest: NSFetchRequest<NSManagedObject>? { didSet { if oldValue != fetchRequest { updateFetchedResultsController() } } }
 
-    private var fetchedResultsController: NSFetchedResultsController? { didSet { fetch() } }
+    fileprivate var fetchedResultsController: NSFetchedResultsController<NSManagedObject>? { didSet { fetch() } }
 
     func updateFetchedResultsController()
     {
@@ -134,29 +135,32 @@ internal class FetchedResultsController : NSObject
 
     // MARK: - Objects
     
-    func objectForIndexPath(optionalIndexPath: NSIndexPath?) -> NSManagedObject?
+    func objectForIndexPath(_ optionalIndexPath: IndexPath?) -> NSManagedObject?
     {
         if let indexPath = optionalIndexPath
         {
-            return fetchedResultsController?.objectAtIndexPath(indexPath) as? NSManagedObject
+            return fetchedResultsController?.object(at: indexPath)
         }
         
         return nil
     }
     
-    func indexPathForObject(optionalObject: NSManagedObject?) -> NSIndexPath?
+    func indexPathForObject(_ optionalObject: NSManagedObject?) -> IndexPath?
     {
         if let object = optionalObject
         {
-            return fetchedResultsController?.indexPathForObject(object)
+            return fetchedResultsController?.indexPath(forObject: object)
         }
         
         return nil
     }
     
-    func indexPathForObjectWithID(optionalID: NSManagedObjectID?) -> NSIndexPath?
+    func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
     {
-        if let id = optionalID, let object = fetchedResultsController?.fetchedObjects?.find({ $0.objectID == id }) as? NSManagedObject
+        guard let id = optionalID else { return nil }
+        
+        
+        if let object = fetchedResultsController?.fetchedObjects?.find(condition: { $0.objectID == id })
         {
             return indexPathForObject(object)
         }
@@ -164,17 +168,17 @@ internal class FetchedResultsController : NSObject
         return nil
     }
     
-    func numberOfObjects(inSection: Int? = nil) -> Int
+    func numberOfObjects(_ inSection: Int? = nil) -> Int
     {
         if let section = inSection
         {
-            return fetchedResultsController?.numberOfObjectsInSection(section) ?? 0
+            return fetchedResultsController?.sections?.get(section)?.numberOfObjects ?? 0//numberOfObjectsInSection(section) ?? 0
         }
         
         return fetchedResultsController?.fetchedObjects?.count ?? 0
     }
     
-    func titleForSection(section: Int? = nil) -> String?
+    func titleForSection(_ section: Int? = nil) -> String?
     {
         return fetchedResultsController?.sections?.get(section)?.name
     }
@@ -183,60 +187,59 @@ internal class FetchedResultsController : NSObject
     {
         return fetchedResultsController?.sections?.count ?? 0
     }
-    
-    
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
 
 extension FetchedResultsController: NSFetchedResultsControllerDelegate
 {
-    func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String) -> String?
+    @nonobjc
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String?
     {
         guard controller == self.fetchedResultsController else { return nil }
 
         return sectionName
     }
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    @nonobjc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
     {
         guard controller == self.fetchedResultsController else { return }
 
         delegate?.controllerWillChangeContent(self)
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    @nonobjc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
     {
         guard controller == self.fetchedResultsController else { return }
 
         delegate?.controllerDidChangeContent(self)
     }
     
-    func controller(controller: NSFetchedResultsController,
-        didChangeObject anObject: AnyObject,
-        atIndexPath indexPath: NSIndexPath?,
-        forChangeType type: NSFetchedResultsChangeType,
-        newIndexPath: NSIndexPath?)
+    @nonobjc func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange anObject: Any,
+        at indexPath: IndexPath?,
+        for type: NSFetchedResultsChangeType,
+        newIndexPath: IndexPath?)
     {
         guard controller == self.fetchedResultsController else { return }
 
         switch type
         {
-        case .Insert where newIndexPath != nil:
+        case .insert where newIndexPath != nil:
             
-            delegate?.controller(self, didInsertObject: anObject, atIndexPath: newIndexPath!)
+            delegate?.controller(self, didInsertObject: anObject as AnyObject, atIndexPath: newIndexPath!)
             
-        case .Delete where indexPath != nil:
+        case .delete where indexPath != nil:
             
-            delegate?.controller(self, didDeleteObject: anObject, atIndexPath: indexPath!)
+            delegate?.controller(self, didDeleteObject: anObject as AnyObject, atIndexPath: indexPath!)
             
-        case .Update where indexPath != nil:
+        case .update where indexPath != nil:
             
-            delegate?.controller(self, didUpdateObject: anObject, atIndexPath: indexPath!)
+            delegate?.controller(self, didUpdateObject: anObject as AnyObject, atIndexPath: indexPath!)
             
-        case .Move where indexPath != nil && newIndexPath != nil:
+        case .move where indexPath != nil && newIndexPath != nil:
  
-            delegate?.controller(self, didMoveObject: anObject, atIndexPath: indexPath!, toIndexPath: newIndexPath!)
+            delegate?.controller(self, didMoveObject: anObject as AnyObject, atIndexPath: indexPath!, toIndexPath: newIndexPath!)
 
         default:
             debugPrint("funky change-type: \(type) for item-change")
@@ -244,24 +247,24 @@ extension FetchedResultsController: NSFetchedResultsControllerDelegate
     }
     
     func controller(
-        controller: NSFetchedResultsController,
-        didChangeSection sectionInfo: NSFetchedResultsSectionInfo,
-        atIndex sectionIndex: Int,
-        forChangeType type: NSFetchedResultsChangeType)
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange sectionInfo: NSFetchedResultsSectionInfo,
+        atSectionIndex sectionIndex: Int,
+        for type: NSFetchedResultsChangeType)
     {
         guard controller == self.fetchedResultsController else { return }
         
         switch type
         {
-        case .Insert:
+        case .insert:
          
             delegate?.controller(self, didInsertSection: sectionIndex)
             
-        case .Delete:
+        case .delete:
             
             delegate?.controller(self, didDeleteSection: sectionIndex)
             
-        case .Update:
+        case .update:
             
             delegate?.controller(self, didUpdateSection: sectionIndex)
             

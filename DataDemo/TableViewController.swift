@@ -16,7 +16,9 @@ class TableViewController: FetchedResultsTableViewController
     {
         managedObjectContext = sharedContext
         
-        let fetchRequest = Message.fetchRequest()
+        let fetchRequest = NSFetchRequest<NSManagedObject>()
+        
+        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Message", in: sharedContext)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortOrder", ascending: true)]
         fetchRequest.predicate = nil
         
@@ -25,7 +27,7 @@ class TableViewController: FetchedResultsTableViewController
         super.viewDidLoad()
     }
 
-    override func configureCell(cell: UITableViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: NSIndexPath)
+    override func configureCell(_ cell: UITableViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: IndexPath)
     {
         guard let message = object as? Message else { return }
         

@@ -8,28 +8,28 @@
 
 import UIKit
 import CoreData
-import Graphics
+import SwiftPlus
 
-public class FetchedResultsTableViewController: UITableViewController, FetchedResultsControllerDelegate, ManagedObjectsController
+open class FetchedResultsTableViewController: UITableViewController, FetchedResultsControllerDelegate, ManagedObjectsController
 {
-    private lazy var fetchedResultsController : FetchedResultsController = { let c = FetchedResultsController(); c.delegate = self; return c }()
+    fileprivate lazy var fetchedResultsController : FetchedResultsController = { let c = FetchedResultsController(); c.delegate = self; return c }()
     
     /// Set this if you are updating the tabledata "manually" (e.g. when rearranging)
-    public var ignoreControllerChanges: Bool = false
+    open var ignoreControllerChanges: Bool = false
     
-    public var managedObjectContext : NSManagedObjectContext?
+    open var managedObjectContext : NSManagedObjectContext?
         {
         set { fetchedResultsController.managedObjectContext = newValue }
         get { return fetchedResultsController.managedObjectContext }
     }
     
-    public var sectionNameKeyPath : String?
+    open var sectionNameKeyPath : String?
         {
         set { fetchedResultsController.sectionNameKeyPath = newValue }
         get { return fetchedResultsController.sectionNameKeyPath }
     }
     
-    public var fetchRequest : NSFetchRequest?
+    open var fetchRequest : NSFetchRequest<NSManagedObject>?
         {
         set { fetchedResultsController.fetchRequest = newValue }
         get { return fetchedResultsController.fetchRequest }
@@ -37,29 +37,29 @@ public class FetchedResultsTableViewController: UITableViewController, FetchedRe
     
     // MARK: - Objects
     
-    public func objectForIndexPath(optionalIndexPath: NSIndexPath?) -> NSManagedObject?
+    open func objectForIndexPath(_ optionalIndexPath: IndexPath?) -> NSManagedObject?
     {
         return fetchedResultsController.objectForIndexPath(optionalIndexPath)
     }
     
-    public func indexPathForObject(optionalObject: NSManagedObject?) -> NSIndexPath?
+    open func indexPathForObject(_ optionalObject: NSManagedObject?) -> IndexPath?
     {
         return fetchedResultsController.indexPathForObject(optionalObject)
     }
     
-    public func indexPathForObjectWithID(optionalID: NSManagedObjectID?) -> NSIndexPath?
+    open func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
     {
         return fetchedResultsController.indexPathForObjectWithID(optionalID)
     }
     
-    public func numberOfObjects(inSection: Int? = nil) -> Int
+    open func numberOfObjects(_ inSection: Int? = nil) -> Int
     {
         return fetchedResultsController.numberOfObjects(inSection)
     }
 
     // MARK: - Lifecycle
     
-    override public func viewDidLoad()
+    override open func viewDidLoad()
     {
         super.viewDidLoad()
         
@@ -70,52 +70,52 @@ public class FetchedResultsTableViewController: UITableViewController, FetchedRe
     
     // MARK: - UITableViewDataSource
     
-    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    override open func numberOfSections(in tableView: UITableView) -> Int
     {
         return fetchedResultsController.numberOfSections()
     }
     
-    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return fetchedResultsController.numberOfObjects(section)
     }
     
-    public func cellReuseIdentifierForIndexPath(indexPath: NSIndexPath) -> String
+    open func cellReuseIdentifierForIndexPath(_ indexPath: IndexPath) -> String
     {
         return "Cell"
     }
     
-    public func configureCell(cell: UITableViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: NSIndexPath)
+    open func configureCell(_ cell: UITableViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: IndexPath)
     {
         debugPrint("override configureCell")
     }
     
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifierForIndexPath(indexPath), forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifierForIndexPath(indexPath), for: indexPath)
         
         configureCell(cell, forObject: objectForIndexPath(indexPath), atIndexPath: indexPath)
         
         return cell
     }
     
-    override public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
         return fetchedResultsController.titleForSection(section)
     }
     
     // MARK: - Rearranging
     
-    var sourceIndexPath : NSIndexPath?
+    var sourceIndexPath : IndexPath?
     var snapshot : UIView?
     var draggingOffset : CGPoint?
     
     // MARK: - ManagedObjectDetailControllerDelegate
     
     
-    public func managedObjectDetailControllerDidFinish(controller: ManagedObjectDetailController, saved: Bool)
+    open func managedObjectDetailControllerDidFinish(_ controller: ManagedObjectDetailController, saved: Bool)
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -123,9 +123,9 @@ public class FetchedResultsTableViewController: UITableViewController, FetchedRe
 
 extension FetchedResultsTableViewController
 {
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override open func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        prepareForSegue(segue, sender: sender, cellsView: tableView)
+        prepareForSegue(segue, sender: sender as AnyObject?, cellsView: tableView)
     }
 }
 
@@ -133,7 +133,7 @@ extension FetchedResultsTableViewController
 
 extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
 {
-    func controllerWillChangeContent(controller: FetchedResultsController)
+    func controllerWillChangeContent(_ controller: FetchedResultsController)
     {
         debugPrint("\(self) will change")
         if !ignoreControllerChanges
@@ -142,7 +142,7 @@ extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
         }
     }
     
-    func controllerDidChangeContent(controller: FetchedResultsController)
+    func controllerDidChangeContent(_ controller: FetchedResultsController)
     {
         debugPrint("\(self) did change")
         if !ignoreControllerChanges
@@ -151,34 +151,34 @@ extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
         }
     }
     
-    func controller(controller: FetchedResultsController, didInsertSection section: Int)
+    func controller(_ controller: FetchedResultsController, didInsertSection section: Int)
     {
-        tableView.insertSections(NSIndexSet(index: section), withRowAnimation: .Fade)
+        tableView.insertSections(IndexSet(integer: section), with: .fade)
     }
  
-    func controller(controller: FetchedResultsController, didDeleteSection section: Int)
+    func controller(_ controller: FetchedResultsController, didDeleteSection section: Int)
     {
-        tableView.deleteSections(NSIndexSet(index: section), withRowAnimation: .Fade)
+        tableView.deleteSections(IndexSet(integer: section), with: .fade)
     }
 
-    func controller(controller: FetchedResultsController, didUpdateSection section: Int)
+    func controller(_ controller: FetchedResultsController, didUpdateSection section: Int)
     {
-        tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Fade)
+        tableView.reloadSections(IndexSet(integer: section), with: .fade)
     }
     
-    func controller(controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
     {
-        tableView.insertRowsAtIndexPaths([path], withRowAnimation: .Fade)
+        tableView.insertRows(at: [path], with: .fade)
     }
     
-    func controller(controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: IndexPath)
     {
-        tableView.deleteRowsAtIndexPaths([path], withRowAnimation: .Fade)
+        tableView.deleteRows(at: [path], with: .fade)
     }
     
-    func controller(controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
     {
-        tableView.reloadRowsAtIndexPaths([path], withRowAnimation: .Fade)
+        tableView.reloadRows(at: [path], with: .fade)
 //        if  let cell = tableView.cellForRowAtIndexPath(path),
 //            let object = objectForIndexPath(path)
 //        {
@@ -187,12 +187,12 @@ extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
 //        }
     }
     
-    func controller(controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
     {
         debugPrint("\(self) did move: \(atIndexPath) -> \(toIndexPath)")
         
-        tableView.deleteRowsAtIndexPaths([atIndexPath], withRowAnimation: .Fade)
-        tableView.insertRowsAtIndexPaths([toIndexPath], withRowAnimation: .Fade)
+        tableView.deleteRows(at: [atIndexPath], with: .fade)
+        tableView.insertRows(at: [toIndexPath], with: .fade)
     }
 }
 
@@ -296,14 +296,14 @@ extension FetchedResultsTableViewController : NSFetchedResultsControllerDelegate
 
 extension FetchedResultsTableViewController
 {
-    func customSnapshotFromView(inputView: UIView) -> UIView
+    func customSnapshotFromView(_ inputView: UIView) -> UIView
     {
         UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
         defer { UIGraphicsEndImageContext() }
         
         if let context = UIGraphicsGetCurrentContext()
         {
-            inputView.layer.renderInContext(context)
+            inputView.layer.render(in: context)
             
             let image = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -326,17 +326,17 @@ extension FetchedResultsTableViewController
         tableView.addGestureRecognizer(longPress)
     }
     
-    func longPressGestureRecognized(longPress :UILongPressGestureRecognizer)
+    func longPressGestureRecognized(_ longPress :UILongPressGestureRecognizer)
     {
-        let location = longPress.locationInView(tableView)
+        let location = longPress.location(in: tableView)
         
         switch longPress.state
         {
-        case .Began:
+        case .began:
             
             ignoreControllerChanges = true
             if let indexPath = tableView.indexPathForLocation(location)
-                , let cell = tableView.cellForRowAtIndexPath(indexPath)
+                , let cell = tableView.cellForRow(at: indexPath)
             {
                 sourceIndexPath = indexPath
                 
@@ -354,10 +354,10 @@ extension FetchedResultsTableViewController
                 
                 tableView.addSubview(snapshot)
                 
-                UIView.animateWithDuration(0.25,
+                UIView.animate(withDuration: 0.25,
                     animations:
                     {
-                        snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05)
+                        snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
                         snapshot.center.y = location.y - (self.draggingOffset?.y ?? 0)
                         snapshot.alpha = 1
                         
@@ -368,18 +368,18 @@ extension FetchedResultsTableViewController
                     completion:
                     { _ in
                         
-                        cell.hidden = true
+                        cell.isHidden = true
                 })
             }
             
-        case .Changed:
+        case .changed:
             
             if let indexPath = tableView.indexPathForLocation(location),
                 let sourceIndexPath = self.sourceIndexPath,
                 let snapshot = self.snapshot,
                 let offset = draggingOffset
             {
-                UIView.animateWithDuration(0.25) { snapshot.center.y = location.y - offset.y }
+                UIView.animate(withDuration: 0.25, animations: { snapshot.center.y = location.y - offset.y }) 
                 
                 if indexPath != sourceIndexPath
                 {
@@ -391,7 +391,7 @@ extension FetchedResultsTableViewController
                     
                     guard let key = fetchRequest?.sortDescriptors?.first?.key else { return }
                     
-                    guard let v1 = o1.valueForKey(key), let v2 = o2.valueForKey(key) else { return }
+                    guard let v1 = o1.value(forKey: key), let v2 = o2.value(forKey: key) else { return }
                     
                     o2.setValue(v1, forKey: key)
                     o1.setValue(v2, forKey: key)
@@ -410,7 +410,7 @@ extension FetchedResultsTableViewController
 //                    }
                     
                     // ... move the rows.
-                    tableView.moveRowAtIndexPath(sourceIndexPath, toIndexPath: indexPath)
+                    tableView.moveRow(at: sourceIndexPath, to: indexPath)
                     
                     // ... and update source so it is in sync with UI changes.
                     self.sourceIndexPath = indexPath
@@ -419,24 +419,24 @@ extension FetchedResultsTableViewController
             
         default:
             if let currentIndexPath = sourceIndexPath,
-                let cell = tableView.cellForRowAtIndexPath(currentIndexPath),
+                let cell = tableView.cellForRow(at: currentIndexPath),
                 let snapshot = self.snapshot
             {
-                cell.hidden = false
+                cell.isHidden = false
                 cell.alpha = 0
                 
-                UIView.animateWithDuration(0.25,
+                UIView.animate(withDuration: 0.25,
                     animations:
                     {
                         snapshot.center = cell.center
-                        snapshot.transform = CGAffineTransformIdentity;
+                        snapshot.transform = CGAffineTransform.identity;
                     },
                     completion:
                     { (completed) -> Void in
                         
                         cell.alpha = 1
                         
-                        UIView.animateWithDuration(0.25,
+                        UIView.animate(withDuration: 0.25,
                             animations:
                             {
                                 //fade out shadow

@@ -7,14 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F38B7EA1DBE3D6700D36455 /* SwiftPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; };
+		8F38B7EB1DBE3D7700D36455 /* SwiftPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B7EC1DBE53DF00D36455 /* SwiftPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; };
 		8F79384D1D06F853002FFAD1 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 8F79384C1D06F853002FFAD1 /* Cartfile.private */; };
 		8FA50D531CAC169F005D28B6 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 8FA50D521CAC169F005D28B6 /* Cartfile */; };
-		8FA50D551CAC17C0005D28B6 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D541CAC17C0005D28B6 /* Collections.framework */; };
-		8FA50D571CAC1C65005D28B6 /* Reflection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D561CAC1C65005D28B6 /* Reflection.framework */; };
-		8FA50D5B1CACF9EA005D28B6 /* Arithmetic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D581CACF9EA005D28B6 /* Arithmetic.framework */; };
-		8FA50D5C1CACF9EA005D28B6 /* Graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D591CACF9EA005D28B6 /* Graphics.framework */; };
-		8FA50D5D1CACF9EA005D28B6 /* UserInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D5A1CACF9EA005D28B6 /* UserInterface.framework */; };
-		8FA50D5F1CACFBBA005D28B6 /* Error.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D5E1CACFBBA005D28B6 /* Error.framework */; };
 		8FA50D6E1CAD0136005D28B6 /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6C1CAD0136005D28B6 /* TestModel.xcdatamodeld */; };
 		8FA50D701CAD029D005D28B6 /* PersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6F1CAD029D005D28B6 /* PersistentStoreType.swift */; };
 		8FA50D771CAD0CAD005D28B6 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D731CAD0CAD005D28B6 /* Group+CoreDataProperties.swift */; };
@@ -40,18 +37,6 @@
 		8FE1D7201CAD827F00A8C681 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FE1D71E1CAD827F00A8C681 /* LaunchScreen.storyboard */; };
 		8FE1D7251CAD83D600A8C681 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD41E951C74AB3E00DDE89D /* Data.framework */; };
 		8FE1D7261CAD83D600A8C681 /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD41E951C74AB3E00DDE89D /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FE1D72A1CAD83E100A8C681 /* Error.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D5E1CACFBBA005D28B6 /* Error.framework */; };
-		8FE1D72B1CAD83E100A8C681 /* Error.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D5E1CACFBBA005D28B6 /* Error.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FE1D72C1CAD83E100A8C681 /* Arithmetic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D581CACF9EA005D28B6 /* Arithmetic.framework */; };
-		8FE1D72D1CAD83E100A8C681 /* Arithmetic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D581CACF9EA005D28B6 /* Arithmetic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FE1D72E1CAD83E100A8C681 /* Graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D591CACF9EA005D28B6 /* Graphics.framework */; };
-		8FE1D72F1CAD83E100A8C681 /* Graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D591CACF9EA005D28B6 /* Graphics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FE1D7301CAD83E100A8C681 /* UserInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D5A1CACF9EA005D28B6 /* UserInterface.framework */; };
-		8FE1D7311CAD83E100A8C681 /* UserInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D5A1CACF9EA005D28B6 /* UserInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FE1D7321CAD83E100A8C681 /* Reflection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D561CAC1C65005D28B6 /* Reflection.framework */; };
-		8FE1D7331CAD83E100A8C681 /* Reflection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D561CAC1C65005D28B6 /* Reflection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8FE1D7341CAD83E100A8C681 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D541CAC17C0005D28B6 /* Collections.framework */; };
-		8FE1D7351CAD83E100A8C681 /* Collections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA50D541CAC17C0005D28B6 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8FE1D7381CAD845100A8C681 /* DemoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1D7361CAD845100A8C681 /* DemoModel.xcdatamodeld */; };
 		8FE1D73B1CAD871800A8C681 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1D7391CAD871800A8C681 /* Message+CoreDataProperties.swift */; };
 		8FE1D73C1CAD871800A8C681 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE1D73A1CAD871800A8C681 /* Message.swift */; };
@@ -81,13 +66,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8F38B7EB1DBE3D7700D36455 /* SwiftPlus.framework in Embed Frameworks */,
 				8FE1D7261CAD83D600A8C681 /* Data.framework in Embed Frameworks */,
-				8FE1D7311CAD83E100A8C681 /* UserInterface.framework in Embed Frameworks */,
-				8FE1D72B1CAD83E100A8C681 /* Error.framework in Embed Frameworks */,
-				8FE1D72D1CAD83E100A8C681 /* Arithmetic.framework in Embed Frameworks */,
-				8FE1D72F1CAD83E100A8C681 /* Graphics.framework in Embed Frameworks */,
-				8FE1D7331CAD83E100A8C681 /* Reflection.framework in Embed Frameworks */,
-				8FE1D7351CAD83E100A8C681 /* Collections.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,15 +75,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftPlus.framework; path = Carthage/Build/iOS/SwiftPlus.framework; sourceTree = "<group>"; };
 		8F79384C1D06F853002FFAD1 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		8F79384E1D06F86F002FFAD1 /* carthage_update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = carthage_update.sh; sourceTree = "<group>"; };
 		8FA50D521CAC169F005D28B6 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
-		8FA50D541CAC17C0005D28B6 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
-		8FA50D561CAC1C65005D28B6 /* Reflection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reflection.framework; path = Carthage/Build/iOS/Reflection.framework; sourceTree = "<group>"; };
-		8FA50D581CACF9EA005D28B6 /* Arithmetic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Arithmetic.framework; path = Carthage/Build/iOS/Arithmetic.framework; sourceTree = "<group>"; };
-		8FA50D591CACF9EA005D28B6 /* Graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Graphics.framework; path = Carthage/Build/iOS/Graphics.framework; sourceTree = "<group>"; };
-		8FA50D5A1CACF9EA005D28B6 /* UserInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserInterface.framework; path = Carthage/Build/iOS/UserInterface.framework; sourceTree = "<group>"; };
-		8FA50D5E1CACFBBA005D28B6 /* Error.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Error.framework; path = Carthage/Build/iOS/Error.framework; sourceTree = "<group>"; };
 		8FA50D6D1CAD0136005D28B6 /* TestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestModel.xcdatamodel; sourceTree = "<group>"; };
 		8FA50D6F1CAD029D005D28B6 /* PersistentStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStoreType.swift; sourceTree = "<group>"; };
 		8FA50D731CAD0CAD005D28B6 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -142,12 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FA50D5F1CACFBBA005D28B6 /* Error.framework in Frameworks */,
-				8FA50D5B1CACF9EA005D28B6 /* Arithmetic.framework in Frameworks */,
-				8FA50D5C1CACF9EA005D28B6 /* Graphics.framework in Frameworks */,
-				8FA50D5D1CACF9EA005D28B6 /* UserInterface.framework in Frameworks */,
-				8FA50D571CAC1C65005D28B6 /* Reflection.framework in Frameworks */,
-				8FA50D551CAC17C0005D28B6 /* Collections.framework in Frameworks */,
+				8F38B7EA1DBE3D6700D36455 /* SwiftPlus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,19 +133,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F38B7EC1DBE53DF00D36455 /* SwiftPlus.framework in Frameworks */,
 				8FE1D7251CAD83D600A8C681 /* Data.framework in Frameworks */,
-				8FE1D7301CAD83E100A8C681 /* UserInterface.framework in Frameworks */,
-				8FE1D72A1CAD83E100A8C681 /* Error.framework in Frameworks */,
-				8FE1D72C1CAD83E100A8C681 /* Arithmetic.framework in Frameworks */,
-				8FE1D72E1CAD83E100A8C681 /* Graphics.framework in Frameworks */,
-				8FE1D7321CAD83E100A8C681 /* Reflection.framework in Frameworks */,
-				8FE1D7341CAD83E100A8C681 /* Collections.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F38B7E81DBE3D6600D36455 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8FA50D7B1CAD0CB5005D28B6 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,12 +164,6 @@
 		8FD41E8B1C74AB3E00DDE89D = {
 			isa = PBXGroup;
 			children = (
-				8FA50D5E1CACFBBA005D28B6 /* Error.framework */,
-				8FA50D581CACF9EA005D28B6 /* Arithmetic.framework */,
-				8FA50D591CACF9EA005D28B6 /* Graphics.framework */,
-				8FA50D5A1CACF9EA005D28B6 /* UserInterface.framework */,
-				8FA50D561CAC1C65005D28B6 /* Reflection.framework */,
-				8FA50D541CAC17C0005D28B6 /* Collections.framework */,
 				8FA50D521CAC169F005D28B6 /* Cartfile */,
 				8F79384C1D06F853002FFAD1 /* Cartfile.private */,
 				8F79384E1D06F86F002FFAD1 /* carthage_update.sh */,
@@ -204,6 +171,7 @@
 				8FD41EA31C74AB3F00DDE89D /* DataTests */,
 				8FE1D7141CAD827F00A8C681 /* DataDemo */,
 				8FD41E961C74AB3E00DDE89D /* Products */,
+				8F38B7E81DBE3D6600D36455 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -354,17 +322,20 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Christian Otkjær";
 				TargetAttributes = {
 					8FD41E941C74AB3E00DDE89D = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0800;
 					};
 					8FD41E9E1C74AB3F00DDE89D = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
 					8FE1D7121CAD827F00A8C681 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 9HQR3Y4WE5;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -508,8 +479,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -532,7 +505,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -556,8 +529,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -574,9 +549,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -588,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -603,6 +580,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -610,6 +588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -624,6 +603,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.silverback-it.Data";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -658,8 +638,9 @@
 		8FE1D7221CAD828000A8C681 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 9HQR3Y4WE5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -668,14 +649,16 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.silverback-it.DataDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		8FE1D7231CAD828000A8C681 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 9HQR3Y4WE5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -684,6 +667,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.silverback-it.DataDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

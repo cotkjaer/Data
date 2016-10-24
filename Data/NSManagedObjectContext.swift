@@ -7,21 +7,20 @@
 //
 
 import CoreData
-import Reflection
-import UserInterface
+import SwiftPlus
 
 extension NSManagedObjectContext
 {
-    public convenience init(modelName: String, inBundle: NSBundle? = nil, storeType: PersistentStoreType = .SQLite) throws
+    public convenience init(modelName: String, inBundle: Bundle? = nil, storeType: PersistentStoreType = .sqLite) throws
     {
-        let coordinator = try NSPersistentStoreCoordinator(modelName:modelName, inBundle: inBundle ?? NSBundle.mainBundle(), storeType: storeType)
+        let coordinator = try NSPersistentStoreCoordinator(modelName:modelName, inBundle: inBundle ?? Bundle.main, storeType: storeType)
         
         self.init(persistentStoreCoordinator: coordinator)
     }
     
     public convenience init(
         persistentStoreCoordinator: NSPersistentStoreCoordinator,
-        concurrencyType: NSManagedObjectContextConcurrencyType = .MainQueueConcurrencyType)
+        concurrencyType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType)
     {
         self.init(concurrencyType: concurrencyType)
         self.persistentStoreCoordinator = persistentStoreCoordinator
@@ -34,21 +33,21 @@ extension NSManagedObjectContext
         let ct = concurrencyType ?? parentContext.concurrencyType
         
         self.init(concurrencyType: ct)
-        self.parentContext = parentContext
+        self.parent = parentContext
     }
     
-    public func childContext(concurrencyType: NSManagedObjectContextConcurrencyType = .MainQueueConcurrencyType) -> NSManagedObjectContext
+    public func childContext(_ concurrencyType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType) -> NSManagedObjectContext
     {
         return NSManagedObjectContext(parentContext: self, concurrencyType: concurrencyType)
     }
     
-    public func objectInChildContext<T: NSManagedObject>(object: T, concurrencyType: NSManagedObjectContextConcurrencyType? = nil) -> (NSManagedObjectContext, T)?
+    public func objectInChildContext<T: NSManagedObject>(_ object: T, concurrencyType: NSManagedObjectContextConcurrencyType? = nil) -> (NSManagedObjectContext, T)?
     {
-        if let /*registeredObject*/ _ = objectRegisteredForID(object.objectID)
+        if let /*registeredObject*/ _ = registeredObject(for: object.objectID)
         {
             let context = NSManagedObjectContext(parentContext: self, concurrencyType: concurrencyType)
             
-            if let childObject = context.objectWithID(object.objectID) as? T
+            if let childObject = context.object(with: object.objectID) as? T
             {
                 return (context, childObject)
             }
@@ -57,9 +56,9 @@ extension NSManagedObjectContext
         return nil
     }
     
-    private func entityDescriptionFor<T: NSManagedObject>(type: T.Type) -> NSEntityDescription?
+    fileprivate func entityDescriptionFor<T: NSManagedObject>(_ type: T.Type) -> NSEntityDescription?
     {
-        if let entityDescription = NSEntityDescription.entityForName(typeName(type), inManagedObjectContext: self)
+        if let entityDescription = NSEntityDescription.entity(forEntityName: typeName(type), in: self)
         {
             return entityDescription
         }
@@ -67,21 +66,21 @@ extension NSManagedObjectContext
         return nil
     }
     
-    public func insert<T: NSManagedObject>(type: T.Type) -> T?
+    public func insert<T: NSManagedObject>(_ type: T.Type) -> T?
     {
         if let entityDescription = self.entityDescriptionFor(type)
         {
-            return T(entity: entityDescription, insertIntoManagedObjectContext: self)
+            return T(entity: entityDescription, insertInto: self)
         }
         
         return nil
     }
     
-    private func executeFetchRequestLogErrors(request: NSFetchRequest) -> [AnyObject]?
+    fileprivate func executeFetchRequestLogErrors<R: NSFetchRequestResult, T: NSManagedObject>(_ request: NSFetchRequest<R>) -> [T]?
     {
         do
         {
-            return try self.executeFetchRequest(request)
+            return try self.fetch(request as! NSFetchRequest<NSFetchRequestResult>) as? [T]
         }
         catch let error
         {
@@ -92,49 +91,51 @@ extension NSManagedObjectContext
         return nil
     }
     
-    public func fetch<T: NSManagedObject>(type: T.Type, predicate:NSPredicate? = nil) -> [T]?
+    public func fetch<T: NSManagedObject>(_ type: T.Type, predicate:NSPredicate? = nil) -> [T]?
     {
-        let fetchRequest = NSFetchRequest(entityName: typeName(type))
+        let fetchRequest = NSFetchRequest<T>(entityName: T.entityName)
         
         fetchRequest.predicate = predicate ?? NSPredicate(value: true)
         
-        if let result = self.executeFetchRequestLogErrors(fetchRequest) as? [T]
-        {
-            return result
-        }
+        return self.executeFetchRequestLogErrors(fetchRequest)
         
-        return nil
+//        if let result = self.executeFetchRequestLogErrors(fetchRequest) as? [T]
+//        {
+//            return result
+//        }
+//        
+//        return nil
     }
     
     
     /// returns all entities with the given type
-    public func all<T: NSManagedObject>(type: T.Type) -> [T]?
+    public func all<T: NSManagedObject>(_ type: T.Type) -> [T]?
     {
         return fetch(T.self, predicate: NSPredicate(value: true))
     }
     
     /// counts all entities with the given type
-    public func count<T: NSManagedObject>(type: T.Type, predicate:NSPredicate? = nil) -> Int
+    public func count<T: NSManagedObject>(_ type: T.Type, predicate:NSPredicate? = nil) -> Int
     {
-        let fetchRequest = NSFetchRequest(entityName: typeName(type))
+        let fetchRequest = NSFetchRequest<T>()//entityName: T.entityName)
         
         fetchRequest.predicate = predicate ?? NSPredicate(value: true)
         
-        var error: NSError? = nil
-        
-        let count = countForFetchRequest(fetchRequest, error: &error)
-        
-        if let e = error
+        do
         {
-            debugPrint("Error: \(e)")
+            return try count(for: fetchRequest)
+        }
+        catch let error
+        {
+            debugPrint("Error: \(error)")
         }
         
-        return count
+        return 0
     }
     
-    public func any<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil) -> T?
+    public func any<T: NSManagedObject>(_ type: T.Type, predicate: NSPredicate? = nil) -> T?
     {
-        let fetchRequest = NSFetchRequest()
+        let fetchRequest = NSFetchRequest<T>()
         fetchRequest.entity = entityDescriptionFor(type)
         fetchRequest.predicate = predicate //NSPredicate(value: true)
         fetchRequest.fetchLimit = 1
@@ -142,9 +143,9 @@ extension NSManagedObjectContext
         return executeFetchRequestLogErrors(fetchRequest)?.last as? T
     }
     
-    public func first<T: NSManagedObject>(type: T.Type, sortDescriptors: [NSSortDescriptor], predicate:NSPredicate? = nil) -> T?
+    public func first<T: NSManagedObject>(_ type: T.Type, sortDescriptors: [NSSortDescriptor], predicate:NSPredicate? = nil) -> T?
     {
-        let fetchRequest = NSFetchRequest()
+        let fetchRequest = NSFetchRequest<T>()
         
         fetchRequest.entity = entityDescriptionFor(type)
         fetchRequest.predicate = predicate // ?? NSPredicate(value: true)

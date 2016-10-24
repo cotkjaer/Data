@@ -1,0 +1,10 @@
+framework module SwiftPlus {
+  umbrella header "SwiftPlus.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftPlus.Swift {
+    header "SwiftPlus-Swift.h"
+}

@@ -7,21 +7,21 @@
 //
 
 import CoreData
-import Error
+import SwiftPlus
 
 extension NSPersistentStoreCoordinator
 {
-    public convenience init(modelName: String, inBundle bundle: NSBundle? = nil, storeType: PersistentStoreType = .SQLite) throws
+    public convenience init(modelName: String, inBundle bundle: Bundle? = nil, storeType: PersistentStoreType = .sqLite) throws
     {
-        if let modelURL = (bundle ?? NSBundle.mainBundle()).URLForResource(modelName, withExtension: "momd")
+        if let modelURL = (bundle ?? Bundle.main).url(forResource: modelName, withExtension: "momd")
         {
-            if let model = NSManagedObjectModel(contentsOfURL: modelURL)
+            if let model = NSManagedObjectModel(contentsOf: modelURL)
             {
                 self.init(managedObjectModel: model)
                 
                 do
                 {
-                    try addPersistentStoreWithType(storeType.persistentStoreType, configuration: nil, URL: storeType.persistentStoreFileURL(modelName), options: nil)
+                    try addPersistentStore(ofType: storeType.persistentStoreType, configurationName: nil, at: storeType.persistentStoreFileURL(modelName), options: nil)
                 }
                 catch let internalError as NSError
                 {

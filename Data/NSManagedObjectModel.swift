@@ -10,11 +10,11 @@ import CoreData
 
 extension NSManagedObjectModel
 {
-    public convenience init?(modelName: String, inBundle bundle: NSBundle)
+    public convenience init?(modelName: String, inBundle bundle: Bundle)
     {
-        if let modelURL = bundle.URLForResource(modelName, withExtension: "momd")
+        if let modelURL = bundle.url(forResource: modelName, withExtension: "momd")
         {
-            self.init(contentsOfURL: modelURL)
+            self.init(contentsOf: modelURL)
         }
         else
         {

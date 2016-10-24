@@ -1,5 +1,2 @@
-github "cotkjaer/Collections"
-github "cotkjaer/Reflection"
-github "cotkjaer/UserInterface"
-github "cotkjaer/Error"
+github "cotkjaer/SwiftPlus"
 

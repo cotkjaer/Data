@@ -10,7 +10,7 @@
 
 import UIKit
 import CoreData
-import UserInterface
+import SwiftPlus
 
 public protocol ManagedObjectDetailController: class
 {
@@ -26,7 +26,7 @@ public protocol ManagedObjectDetailController: class
 
 public protocol ManagedObjectDetailControllerDelegate
 {
-    func managedObjectDetailControllerDidFinish(controller: ManagedObjectDetailController, saved: Bool)
+    func managedObjectDetailControllerDidFinish(_ controller: ManagedObjectDetailController, saved: Bool)
 }
 
 
@@ -35,24 +35,24 @@ public protocol ManagedObjectDetailControllerDelegate
 
 extension UINavigationController
 {
-    public var managedObjectDetailController: ManagedObjectDetailController? { return viewControllers.find(ManagedObjectDetailController) }
+    public var managedObjectDetailController: ManagedObjectDetailController? { return viewControllers.find(ManagedObjectDetailController.self) }
 }
 
-public class ManagedObjectDetailViewController: UIViewController, ManagedObjectDetailController
+open class ManagedObjectDetailViewController: UIViewController, ManagedObjectDetailController
 {
-    public var managedObjectDetailControllerDelegate: ManagedObjectDetailControllerDelegate?
+    open var managedObjectDetailControllerDelegate: ManagedObjectDetailControllerDelegate?
     
-    public var managedObjectContext: NSManagedObjectContext? { didSet { updateObject() } }
+    open var managedObjectContext: NSManagedObjectContext? { didSet { updateObject() } }
     
-    public var managedObjectID: NSManagedObjectID? { didSet { updateObject() } }
+    open var managedObjectID: NSManagedObjectID? { didSet { updateObject() } }
     
-    public var managedObject: NSManagedObject?
+    open var managedObject: NSManagedObject?
     
-    private func updateObject()
+    fileprivate func updateObject()
     {
         if let id = managedObjectID, let context = managedObjectContext
         {
-            managedObject = context.objectWithID(id)
+            managedObject = context.object(with: id)
         }
         else if managedObject != nil
         {

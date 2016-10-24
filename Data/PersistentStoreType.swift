@@ -10,28 +10,28 @@ import CoreData
 
 public enum PersistentStoreType
 {
-    case SQLite, Binary, InMemory
+    case sqLite, binary, inMemory
     
     internal var persistentStoreType : String
         {
             switch self
             {
-            case .SQLite:
+            case .sqLite:
                 return NSSQLiteStoreType
-            case .InMemory:
+            case .inMemory:
                 return NSInMemoryStoreType
-            case .Binary:
+            case .binary:
                 return NSBinaryStoreType
             }
     }
     
-    private func persistentStoreFileURL(modelName: String, fileExtension: String, error: NSErrorPointer = nil) -> NSURL?
+    fileprivate func persistentStoreFileURL(_ modelName: String, fileExtension: String, error: NSErrorPointer? = nil) -> URL?
     {
         do
         {
-            let documentsDirectoryURL = try NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+            let documentsDirectoryURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             
-            return documentsDirectoryURL.URLByAppendingPathComponent(modelName + "." + fileExtension)
+            return documentsDirectoryURL.appendingPathComponent(modelName + "." + fileExtension)
             
         }
         catch let error
@@ -42,15 +42,15 @@ public enum PersistentStoreType
         return nil
     }
     
-    internal func persistentStoreFileURL(modelName: String, error: NSErrorPointer = nil) -> NSURL?
+    internal func persistentStoreFileURL(_ modelName: String, error: NSErrorPointer? = nil) -> URL?
     {
         switch self
         {
-        case .SQLite:
+        case .sqLite:
             return persistentStoreFileURL(modelName, fileExtension: ".sqlite")
-        case .InMemory:
+        case .inMemory:
             return nil
-        case .Binary:
+        case .binary:
             return persistentStoreFileURL(modelName, fileExtension: ".sqlite")
         }
     }

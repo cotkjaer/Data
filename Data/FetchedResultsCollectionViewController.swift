@@ -8,27 +8,26 @@
 
 import UIKit
 import CoreData
-import Collections
-import UserInterface
+import SwiftPlus
 
-public class FetchedResultsCollectionViewController: UICollectionViewController, FetchedResultsControllerDelegate, ManagedObjectsController
+open class FetchedResultsCollectionViewController: UICollectionViewController, FetchedResultsControllerDelegate, ManagedObjectsController
 {
-    private lazy var fetchedResultsController : FetchedResultsController = { let c = FetchedResultsController(); c.delegate = self; return c }()
+    fileprivate lazy var fetchedResultsController : FetchedResultsController = { let c = FetchedResultsController(); c.delegate = self; return c }()
     
     /// Set this if you are updating the tabledata "manually" (e.g. when rearranging)
-    public var ignoreControllerChanges: Bool = false
+    open var ignoreControllerChanges: Bool = false
     
-    public var managedObjectContext : NSManagedObjectContext?
+    open var managedObjectContext : NSManagedObjectContext?
         {
         set { fetchedResultsController.managedObjectContext = newValue }
         get { return fetchedResultsController.managedObjectContext }
     }
-    public var sectionNameKeyPath : String?
+    open var sectionNameKeyPath : String?
         {
         set { fetchedResultsController.sectionNameKeyPath = newValue }
         get { return fetchedResultsController.sectionNameKeyPath }
     }
-    public var fetchRequest : NSFetchRequest?
+    open var fetchRequest : NSFetchRequest<NSManagedObject>?
         {
         set { fetchedResultsController.fetchRequest = newValue }
         get { return fetchedResultsController.fetchRequest }
@@ -36,29 +35,29 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
     
     // MARK: - Objects
     
-    public func objectForIndexPath(optionalIndexPath: NSIndexPath?) -> NSManagedObject?
+    open func objectForIndexPath(_ optionalIndexPath: IndexPath?) -> NSManagedObject?
     {
         return fetchedResultsController.objectForIndexPath(optionalIndexPath)
     }
     
-    public func indexPathForObject(optionalObject: NSManagedObject?) -> NSIndexPath?
+    open func indexPathForObject(_ optionalObject: NSManagedObject?) -> IndexPath?
     {
         return fetchedResultsController.indexPathForObject(optionalObject)
     }
     
-    public func indexPathForObjectWithID(optionalID: NSManagedObjectID?) -> NSIndexPath?
+    open func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
     {
         return fetchedResultsController.indexPathForObjectWithID(optionalID)
     }
     
-    public func numberOfObjects(inSection: Int? = nil) -> Int
+    open func numberOfObjects(_ inSection: Int? = nil) -> Int
     {
         return fetchedResultsController.numberOfObjects(inSection)
     }
     
     // MARK: - Lifecycle
     
-    override public func viewDidLoad()
+    override open func viewDidLoad()
     {
         super.viewDidLoad()
         
@@ -69,28 +68,28 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
     
     // MARK: UICollectionViewDataSource
     
-    override public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return fetchedResultsController.numberOfSections()
     }
     
-    override public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         return fetchedResultsController.numberOfObjects(section)
     }
     
-    public func cellReuseIdentifierForIndexPath(indexPath: NSIndexPath) -> String
+    open func cellReuseIdentifierForIndexPath(_ indexPath: IndexPath) -> String
     {
         return "Cell"
     }
     
-    public func configureCell(cell: UICollectionViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: NSIndexPath)
+    open func configureCell(_ cell: UICollectionViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: IndexPath)
     {
         debugPrint("override configureCell")
     }
     
-    final override public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    final override public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifierForIndexPath(indexPath), forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifierForIndexPath(indexPath), for: indexPath)
         
         configureCell(cell, forObject: objectForIndexPath(indexPath), atIndexPath: indexPath)
         
@@ -99,33 +98,33 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
     
     // MARK: - ManagedObjectDetailControllerDelegate
     
-    public func managedObjectDetailControllerDidFinish(controller: ManagedObjectDetailController, saved: Bool)
+    open func managedObjectDetailControllerDidFinish(_ controller: ManagedObjectDetailController, saved: Bool)
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Navigation
     
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override open func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         prepareForSegue(segue, sender: sender, cellsView: collectionView)
     }
     
     // MARK: - FetchedResultsControllerDelegate
     
-    var blockOperation : NSBlockOperation?
+    var blockOperation : BlockOperation?
     var shouldReloadCollectionView = false { didSet { if shouldReloadCollectionView { blockOperation = nil } } }
     
     
-    func controllerWillChangeContent(controller: FetchedResultsController)
+    func controllerWillChangeContent(_ controller: FetchedResultsController)
     {
         guard !ignoreControllerChanges else { return }
         
         shouldReloadCollectionView = false
-        blockOperation = NSBlockOperation()
+        blockOperation = BlockOperation()
     }
 
-    func controllerDidChangeContent(controller: FetchedResultsController)
+    func controllerDidChangeContent(_ controller: FetchedResultsController)
     {
         // Checks if we should reload the collection view to aleviate a bug @ http://openradar.appspot.com/12954582
         if shouldReloadCollectionView
@@ -138,7 +137,7 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         }
     }
 
-    func controller(controller: FetchedResultsController, didInsertSection section: Int)
+    func controller(_ controller: FetchedResultsController, didInsertSection section: Int)
     {
         guard !ignoreControllerChanges else { return }
         
@@ -147,7 +146,7 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         blockOperation?.addExecutionBlock { collectionView.insertSection( section ) }
     }
     
-    func controller(controller: FetchedResultsController, didDeleteSection section: Int)
+    func controller(_ controller: FetchedResultsController, didDeleteSection section: Int)
     {
         guard !ignoreControllerChanges else { return }
         
@@ -156,7 +155,7 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         blockOperation?.addExecutionBlock { collectionView.deleteSection( section ) }
     }
     
-    func controller(controller: FetchedResultsController, didUpdateSection section: Int)
+    func controller(_ controller: FetchedResultsController, didUpdateSection section: Int)
     {
         guard !ignoreControllerChanges else { return }
         
@@ -165,21 +164,21 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         blockOperation?.addExecutionBlock { collectionView.reloadSection( section ) }
     }
     
-    func controller(controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
         guard let collectionView = collectionView else { return }
         
-        if collectionView.numberOfSections() > 0
+        if collectionView.numberOfSections > 0
         {
-            if collectionView.numberOfItemsInSection( path.section ) == 0
+            if collectionView.numberOfItems( inSection: (path as NSIndexPath).section ) == 0
             {
                 shouldReloadCollectionView = true
             }
             else
             {
-                blockOperation?.addExecutionBlock { collectionView.insertItemAtIndexPath( path ) }
+                blockOperation?.addExecutionBlock { collectionView.insertItem(at: path ) }
             }
         }
         else
@@ -188,146 +187,40 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         }
     }
     
-    func controller(controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
         guard let collectionView = collectionView else { return }
 
-        if collectionView.numberOfItemsInSection( path.section ) == 1
+        if collectionView.numberOfItems( inSection: (path as NSIndexPath).section ) == 1
         {
             shouldReloadCollectionView = true
         }
         else
         {
-            blockOperation?.addExecutionBlock { collectionView.deleteItemAtIndexPath( path ) }
+            blockOperation?.addExecutionBlock { collectionView.deleteItem(at: path ) }
         }
     }
     
-    func controller(controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.reloadItemAtIndexPath( path ) }
+        blockOperation?.addExecutionBlock { collectionView.reloadItems( at: [ path ] ) }
         
     }
     
-    func controller(controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
+    func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.moveItemFromIndexPath( atIndexPath, toIndexPath: toIndexPath ) }
+        blockOperation?.addExecutionBlock { collectionView.moveItem(at: atIndexPath, to: toIndexPath ) }
     }
-
-    
-    /*
-    public func controller(
-        controller: NSFetchedResultsController,
-        didChangeSection sectionInfo: NSFetchedResultsSectionInfo,
-        atIndex sectionIndex: Int,
-        forChangeType type: NSFetchedResultsChangeType)
-    {
-        if let collectionView = collectionView
-        {
-            switch type
-            {
-            case .Insert:
-                
-                blockOperation?.addExecutionBlock { collectionView.insertSection( sectionIndex ) }
-                
-            case .Delete:
-                
-                blockOperation?.addExecutionBlock { collectionView.deleteSection( sectionIndex ) }
-                
-            case .Update:
-                
-                blockOperation?.addExecutionBlock { collectionView.reloadSection( sectionIndex ) }
-                
-            default:
-                
-                debugPrint("funky change-type: \(type) for section-change")
-                
-            }
-        }
-    }
-    
-    public func controller(
-        controller: NSFetchedResultsController,
-        didChangeObject anObject: AnyObject,
-        atIndexPath indexPath: NSIndexPath?,
-        forChangeType type: NSFetchedResultsChangeType,
-        newIndexPath: NSIndexPath?)
-    {
-        if let collectionView = self.collectionView
-        {
-            switch type
-            {
-            case .Insert where newIndexPath != nil:
-                
-                if collectionView.numberOfSections() > 0
-                {
-                    if collectionView.numberOfItemsInSection( newIndexPath?.section ) == 0
-                    {
-                        shouldReloadCollectionView = true
-                    }
-                    else
-                    {
-                        blockOperation?.addExecutionBlock { collectionView.insertItemAtIndexPath( newIndexPath ) }
-                    }
-                }
-                else
-                {
-                    shouldReloadCollectionView = true
-                }
-                
-            case .Delete where indexPath != nil:
-                
-                if collectionView.numberOfItemsInSection( indexPath!.section ) == 1
-                {
-                    shouldReloadCollectionView = true
-                }
-                else
-                {
-                    blockOperation?.addExecutionBlock { collectionView.deleteItemAtIndexPath( indexPath ) }
-                }
-                
-            case .Update where indexPath != nil:
-                
-                blockOperation?.addExecutionBlock { collectionView.reloadItemAtIndexPath( indexPath ) }
-                
-            case .Move where indexPath != nil && newIndexPath != nil:
-                
-                blockOperation?.addExecutionBlock { collectionView.moveItemFromIndexPath( indexPath, toIndexPath: newIndexPath ) }
-                
-            default:
-                debugPrint("funky change-type: \(type) for item-change")
-                
-            }
-        }
-    }
-    
-    public func controllerDidChangeContent(controller: NSFetchedResultsController)
-    {
-        // Checks if we should reload the collection view to fix a bug @ http://openradar.appspot.com/12954582
-        if shouldReloadCollectionView
-        {
-            collectionView?.reloadData()
-        }
-        else if let blockOperation = blockOperation, let collectionView = collectionView
-        {
-            collectionView.performBatchUpdates(blockOperation.start, completion: nil)
-        }
-    }
-*/
-    
-//    public func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String) -> String?
-//    {
-//        return sectionName
-//    }
     
     // MARK: - Rearranging
     
@@ -337,7 +230,7 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
     var cachedCellShadowOffset = CGSize(width: 0, height: 5)
     var cachedCellShadowRadius = CGFloat(5)
     var cachedCellShadowOpacity = Float(0.4)
-    var cachedCellTransform = CGAffineTransformIdentity
+    var cachedCellTransform = CGAffineTransform.identity
     
     func setupRearranging()
     {
@@ -346,35 +239,35 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
     }
     
     @available(iOS 9.0, *)
-    func handleLongGesture(gesture: UILongPressGestureRecognizer)
+    func handleLongGesture(_ gesture: UILongPressGestureRecognizer)
     {
         if let collectionView = self.collectionView
         {
-            let location = gesture.locationInView(collectionView)
+            let location = gesture.location(in: collectionView)
             
             switch(gesture.state)
             {
-            case .Began:
+            case .began:
                 
-                collectionView.superview?.bringSubviewToFront(collectionView)
+                collectionView.superview?.bringSubview(toFront: collectionView)
                 
-                if let indexPathForPressedItem = collectionView.indexPathForItemAtPoint(location)
+                if let indexPathForPressedItem = collectionView.indexPathForItem(at: location)
                 {
-                    if let cell = collectionView.cellForItemAtIndexPath(indexPathForPressedItem)
+                    if let cell = collectionView.cellForItem(at: indexPathForPressedItem)
                     {
                         cellBeingDragged = cell
                         cachCell(cell)
                     }
-                    collectionView.beginInteractiveMovementForItemAtIndexPath(indexPathForPressedItem)
+                    collectionView.beginInteractiveMovementForItem(at: indexPathForPressedItem)
                 }
                 
-            case .Changed:
+            case .changed:
                 
                 debugPrint(gesture.view)
                 
                 collectionView.updateInteractiveMovementTargetPosition(location)
                 
-            case .Ended:
+            case .ended:
                 restoreCellBeingDragged()
                 collectionView.endInteractiveMovement()
                 
@@ -385,7 +278,7 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         }
     }
     
-    func cachCell(cell: UICollectionViewCell)
+    func cachCell(_ cell: UICollectionViewCell)
     {
         cellBeingDragged = cell
         
@@ -396,36 +289,36 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         cachedCellShadowRadius = cell.layer.shadowRadius
         cachedCellTransform = cell.transform
         
-        UIView.animateWithDuration(0.25)
-            {
+        UIView.animate(withDuration: 0.25, animations: {
                 cell.layer.masksToBounds = false
                 cell.layer.cornerRadius = 0
                 cell.layer.shadowOffset = CGSize(width: 0, height: 5)
                 cell.layer.shadowRadius = 5
                 cell.layer.shadowOpacity = 0.4
-                cell.transform = CGAffineTransformScale(cell.transform, 1.05, 1.05)
-        }
+                cell.transform = cell.transform.scaledBy(x: 1.05, y: 1.05)
+        })
+            
     }
     
     func restoreCellBeingDragged()
     {
         if let cell = cellBeingDragged
         {
-            UIView.animateWithDuration(0.25)
-                {
+            UIView.animate(withDuration: 0.25, animations: {
                     cell.layer.masksToBounds = self.cachedCellMasksToBounds
                     cell.layer.cornerRadius = self.cachedCellCornerRadius
                     cell.layer.shadowOffset = self.cachedCellShadowOffset
                     cell.layer.shadowRadius = self.cachedCellShadowRadius
                     cell.layer.shadowOpacity = self.cachedCellShadowOpacity
                     cell.transform = self.cachedCellTransform
-            }
+            })
+                
         }
     }
     
-    override public func collectionView(collectionView: UICollectionView,
-        moveItemAtIndexPath sourceIndexPath: NSIndexPath,
-        toIndexPath destinationIndexPath: NSIndexPath)
+    override open func collectionView(_ collectionView: UICollectionView,
+        moveItemAt sourceIndexPath: IndexPath,
+        to destinationIndexPath: IndexPath)
     {
         ignoreControllerChanges = true
         
@@ -434,7 +327,7 @@ public class FetchedResultsCollectionViewController: UICollectionViewController,
         
         guard let key = fetchRequest?.sortDescriptors?.first?.key else { return }
         
-        guard let v1 = o1.valueForKey(key), let v2 = o2.valueForKey(key) else { return }
+        guard let v1 = o1.value(forKey: key), let v2 = o2.value(forKey: key) else { return }
         
         o2.setValue(v1, forKey: key)
         o1.setValue(v2, forKey: key)
