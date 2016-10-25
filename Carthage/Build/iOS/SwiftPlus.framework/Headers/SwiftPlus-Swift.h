@@ -151,6 +151,15 @@ SWIFT_CLASS("_TtC9SwiftPlus10Connection")
 @interface OS_dispatch_semaphore (SWIFT_EXTENSION(SwiftPlus))
 @end
 
+@class NSURLResponse;
+
+@interface NSFileManager (SWIFT_EXTENSION(SwiftPlus))
+- (void)getDataFromUrlWithUrl:(NSURL * _Nonnull)url completion:(void (^ _Nonnull)(NSData * _Nullable, NSURLResponse * _Nullable, NSError * _Nullable))completion;
+- (NSURL * _Nullable)documentsFolderURL;
+- (NSURL * _Nullable)documentURLForFile:(NSString * _Nonnull)fileName fileExtension:(NSString * _Nonnull)fileExtension;
+- (NSString * _Nullable)documentsFolderPath;
+@end
+
 @class UICollectionViewLayoutAttributes;
 
 SWIFT_CLASS("_TtC9SwiftPlus24LERPCollectionViewLayout")
@@ -294,23 +303,23 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 
 
 @interface UICollectionView (SWIFT_EXTENSION(SwiftPlus))
+- (NSIndexPath * _Nullable)indexPathForLocation:(CGPoint)location;
+@end
+
+
+@interface UICollectionView (SWIFT_EXTENSION(SwiftPlus))
 - (void)refreshVisible:(BOOL)animated completion:(void (^ _Nullable)(BOOL))completion;
 @end
 
 
 @interface UICollectionView (SWIFT_EXTENSION(SwiftPlus))
-- (NSIndexPath * _Nullable)indexPathForLocation:(CGPoint)location;
+- (NSInteger)numberOfItemsInSectionForIndexPath:(NSIndexPath * _Nullable)indexPath;
 @end
 
 
 @interface UICollectionView (SWIFT_EXTENSION(SwiftPlus))
 - (void)performBatchUpdates:(void (^ _Nullable)(void))updates;
 - (void)reloadSection:(NSInteger)section;
-@end
-
-
-@interface UICollectionView (SWIFT_EXTENSION(SwiftPlus))
-- (NSInteger)numberOfItemsInSectionForIndexPath:(NSIndexPath * _Nullable)indexPath;
 @end
 
 @class UICollectionViewCell;
@@ -390,6 +399,15 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 @end
 
 
+@interface UIImageView (SWIFT_EXTENSION(SwiftPlus))
+@end
+
+
+@interface UILabel (SWIFT_EXTENSION(SwiftPlus))
+- (void)adjustFontSizeToFitRectWithRect:(CGRect)rect;
+@end
+
+
 @interface UILabel (SWIFT_EXTENSION(SwiftPlus))
 /**
   Crossfades the existing text with the \code
@@ -414,11 +432,6 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 
 
 @interface UILabel (SWIFT_EXTENSION(SwiftPlus))
-- (void)adjustFontSizeToFitRectWithRect:(CGRect)rect;
-@end
-
-
-@interface UILabel (SWIFT_EXTENSION(SwiftPlus))
 @property (nonatomic, copy) NSString * _Nonnull fontName;
 @end
 
@@ -431,13 +444,13 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 
 
 @interface UINavigationController (SWIFT_EXTENSION(SwiftPlus))
-@property (nonatomic, readonly, copy) NSArray<UIViewController *> * _Nonnull visibleViewControllers;
+- (void)popViewControllerWithHandler:(void (^ _Nonnull)(void))completion;
+- (void)pushViewController:(UIViewController * _Nonnull)viewController completion:(void (^ _Nonnull)(void))completion;
 @end
 
 
 @interface UINavigationController (SWIFT_EXTENSION(SwiftPlus))
-- (void)popViewControllerWithHandler:(void (^ _Nonnull)(void))completion;
-- (void)pushViewController:(UIViewController * _Nonnull)viewController completion:(void (^ _Nonnull)(void))completion;
+@property (nonatomic, readonly, copy) NSArray<UIViewController *> * _Nonnull visibleViewControllers;
 @end
 
 
@@ -503,22 +516,7 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 
 
 @interface UIView (SWIFT_EXTENSION(SwiftPlus))
-- (UIImage * _Nonnull)snapshot;
-@end
-
-
-@interface UIView (SWIFT_EXTENSION(SwiftPlus))
-- (void)resizeToFitSubviews;
-@end
-
-
-@interface UIView (SWIFT_EXTENSION(SwiftPlus))
 - (CGRect)frameInView:(UIView * _Nonnull)view;
-@end
-
-
-@interface UIView (SWIFT_EXTENSION(SwiftPlus))
-- (UIView * _Nullable)findFirstResponder;
 @end
 
 
@@ -537,7 +535,22 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 
 
 @interface UIView (SWIFT_EXTENSION(SwiftPlus))
+- (UIImage * _Nonnull)snapshot;
+@end
+
+
+@interface UIView (SWIFT_EXTENSION(SwiftPlus))
+- (void)resizeToFitSubviews;
+@end
+
+
+@interface UIView (SWIFT_EXTENSION(SwiftPlus))
 - (BOOL)anySubViewScrolling;
+@end
+
+
+@interface UIView (SWIFT_EXTENSION(SwiftPlus))
+- (UIView * _Nullable)findFirstResponder;
 @end
 
 
@@ -590,12 +603,12 @@ SWIFT_CLASS("_TtC9SwiftPlus16RearrangableView")
 
 
 @interface UIViewController (SWIFT_EXTENSION(SwiftPlus))
+- (void)cover:(double)duration hideActivityView:(BOOL)hideActivityView completion:(void (^ _Nullable)(void))completion;
+- (void)uncover:(double)duration completion:(void (^ _Nullable)(void))completion;
 @end
 
 
 @interface UIViewController (SWIFT_EXTENSION(SwiftPlus))
-- (void)cover:(double)duration hideActivityView:(BOOL)hideActivityView completion:(void (^ _Nullable)(void))completion;
-- (void)uncover:(double)duration completion:(void (^ _Nullable)(void))completion;
 @end
 
 

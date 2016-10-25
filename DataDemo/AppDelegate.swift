@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do
         {
             sharedContext = try NSManagedObjectContext(modelName: "DemoModel")
-            populateDataStore()
+//            populateDataStore()
         }
         catch let error
         {

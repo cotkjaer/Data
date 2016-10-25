@@ -98,13 +98,6 @@ extension NSManagedObjectContext
         fetchRequest.predicate = predicate ?? NSPredicate(value: true)
         
         return self.executeFetchRequestLogErrors(fetchRequest)
-        
-//        if let result = self.executeFetchRequestLogErrors(fetchRequest) as? [T]
-//        {
-//            return result
-//        }
-//        
-//        return nil
     }
     
     

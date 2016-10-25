@@ -25,33 +25,50 @@ public enum PersistentStoreType
             }
     }
     
-    fileprivate func persistentStoreFileURL(_ modelName: String, fileExtension: String, error: NSErrorPointer? = nil) -> URL?
-    {
-        do
-        {
-            let documentsDirectoryURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            
-            return documentsDirectoryURL.appendingPathComponent(modelName + "." + fileExtension)
-            
-        }
-        catch let error
-        {
-            debugPrint("Error: \(error)")
-        }
-        
-        return nil
-    }
     
-    internal func persistentStoreFileURL(_ modelName: String, error: NSErrorPointer? = nil) -> URL?
+    internal var fileExtension : String
     {
         switch self
         {
         case .sqLite:
-            return persistentStoreFileURL(modelName, fileExtension: ".sqlite")
+            return "sqlite"
+        case .inMemory:
+            return ""
+        case .binary:
+            return "sqlite" //TODO: fix
+        }
+    }
+
+    internal func persistentStoreBundledFileURL(_ modelName: String, inBundle bundle : Bundle = Bundle.main) -> URL?
+    {
+        switch self
+        {
         case .inMemory:
             return nil
-        case .binary:
-            return persistentStoreFileURL(modelName, fileExtension: ".sqlite")
+        default:
+            return bundle.url(forResource: modelName, withExtension: fileExtension)
+       }
+    }
+
+    internal func persistentStoreFileURL(_ modelName: String) throws -> URL?
+    {
+        switch self
+        {
+        case .inMemory:
+            return nil
+        default:
+            let documentsDirectoryURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            
+            return documentsDirectoryURL.appendingPathComponent(modelName + "." + fileExtension)
         }
+    }
+    
+    internal func prePopulate(_ modelName: String, fromBundle bundle : Bundle = Bundle.main) throws
+    {
+        let documentsFileURL = try persistentStoreFileURL(modelName)
+        
+        guard documentsFileURL == nil else { return }
+        
+        
     }
 }

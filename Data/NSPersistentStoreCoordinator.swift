@@ -11,9 +11,20 @@ import SwiftPlus
 
 extension NSPersistentStoreCoordinator
 {
-    public convenience init(modelName: String, inBundle bundle: Bundle? = nil, storeType: PersistentStoreType = .sqLite) throws
+    private func preloadSqLite(forModelNamed name: String, inBundle bundle: Bundle) throws
     {
-        if let modelURL = (bundle ?? Bundle.main).url(forResource: modelName, withExtension: "momd")
+        guard let pathToDocumentsFolder = FileManager.default.documentsFolderPath() else { return }
+        
+        let _ = try FileManager.default.copy(resourceNamed: name, ofType: "sqlite", toFolder: pathToDocumentsFolder)
+        let _ = try FileManager.default.copy(resourceNamed: name, ofType: "sqlite-shm", toFolder: pathToDocumentsFolder)
+        let _ = try FileManager.default.copy(resourceNamed: name, ofType: "sqlite-wal", toFolder: pathToDocumentsFolder)
+    }
+    
+    public convenience init(modelName: String, inBundle bundle: Bundle? = nil, storeType: PersistentStoreType = .sqLite, prepopulate: Bool = true) throws
+    {
+        let bundle = bundle ?? Bundle.main
+        
+        if let modelURL = bundle.url(forResource: modelName, withExtension: "momd")
         {
             if let model = NSManagedObjectModel(contentsOf: modelURL)
             {
@@ -21,6 +32,11 @@ extension NSPersistentStoreCoordinator
                 
                 do
                 {
+                    if storeType == .sqLite
+                    {
+                        try preloadSqLite(forModelNamed: modelName, inBundle: bundle)
+                    }
+                    
                     try addPersistentStore(ofType: storeType.persistentStoreType, configurationName: nil, at: storeType.persistentStoreFileURL(modelName), options: nil)
                 }
                 catch let internalError as NSError

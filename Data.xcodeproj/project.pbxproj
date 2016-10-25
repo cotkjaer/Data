@@ -10,6 +10,9 @@
 		8F38B7EA1DBE3D6700D36455 /* SwiftPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; };
 		8F38B7EB1DBE3D7700D36455 /* SwiftPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8F38B7EC1DBE53DF00D36455 /* SwiftPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; };
+		8F38B8001DBF557900D36455 /* DemoModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */; };
+		8F38B8011DBF557900D36455 /* DemoModel.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */; };
+		8F38B8021DBF557900D36455 /* DemoModel.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */; };
 		8F79384D1D06F853002FFAD1 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 8F79384C1D06F853002FFAD1 /* Cartfile.private */; };
 		8FA50D531CAC169F005D28B6 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 8FA50D521CAC169F005D28B6 /* Cartfile */; };
 		8FA50D6E1CAD0136005D28B6 /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6C1CAD0136005D28B6 /* TestModel.xcdatamodeld */; };
@@ -76,6 +79,9 @@
 
 /* Begin PBXFileReference section */
 		8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftPlus.framework; path = Carthage/Build/iOS/SwiftPlus.framework; sourceTree = "<group>"; };
+		8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DemoModel.sqlite; sourceTree = "<group>"; };
+		8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DemoModel.sqlite-shm"; sourceTree = "<group>"; };
+		8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DemoModel.sqlite-wal"; sourceTree = "<group>"; };
 		8F79384C1D06F853002FFAD1 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		8F79384E1D06F86F002FFAD1 /* carthage_update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = carthage_update.sh; sourceTree = "<group>"; };
 		8FA50D521CAC169F005D28B6 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -225,6 +231,9 @@
 		8FE1D7141CAD827F00A8C681 /* DataDemo */ = {
 			isa = PBXGroup;
 			children = (
+				8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */,
+				8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */,
+				8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */,
 				8FE1D73D1CAD872600A8C681 /* Data Model */,
 				8FE1D7151CAD827F00A8C681 /* AppDelegate.swift */,
 				8FE1D7171CAD827F00A8C681 /* TableViewController.swift */,
@@ -380,7 +389,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F38B8011DBF557900D36455 /* DemoModel.sqlite-shm in Resources */,
 				8FE1D7201CAD827F00A8C681 /* LaunchScreen.storyboard in Resources */,
+				8F38B8021DBF557900D36455 /* DemoModel.sqlite-wal in Resources */,
+				8F38B8001DBF557900D36455 /* DemoModel.sqlite in Resources */,
 				8FE1D71D1CAD827F00A8C681 /* Assets.xcassets in Resources */,
 				8FE1D71B1CAD827F00A8C681 /* Main.storyboard in Resources */,
 			);
