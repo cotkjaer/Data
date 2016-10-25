@@ -20,40 +20,33 @@ extension NSPersistentStoreCoordinator
         let _ = try FileManager.default.copy(resourceNamed: name, ofType: "sqlite-wal", toFolder: pathToDocumentsFolder)
     }
     
-    public convenience init(modelName: String, inBundle bundle: Bundle? = nil, storeType: PersistentStoreType = .sqLite, prepopulate: Bool = true) throws
+    public convenience init(modelName: String, inBundle bundle: Bundle = Bundle.main, storeType: PersistentStoreType = .sqLite, prepopulate: Bool = true) throws
     {
-        let bundle = bundle ?? Bundle.main
-        
-        if let modelURL = bundle.url(forResource: modelName, withExtension: "momd")
-        {
-            if let model = NSManagedObjectModel(contentsOf: modelURL)
-            {
-                self.init(managedObjectModel: model)
-                
-                do
-                {
-                    if storeType == .sqLite
-                    {
-                        try preloadSqLite(forModelNamed: modelName, inBundle: bundle)
-                    }
-                    
-                    try addPersistentStore(ofType: storeType.persistentStoreType, configurationName: nil, at: storeType.persistentStoreFileURL(modelName), options: nil)
-                }
-                catch let internalError as NSError
-                {
-                    throw NSError(domain: "NSPersistentStoreCoordinator", code: 3, description: "Failed to create NSPersistentStoreCoordinator", reason: "Could not create Persistent Store", underlyingError: internalError)
-                }
-                
-                return
-            }
+        guard let modelURL = bundle.url(forResource: modelName, withExtension: "momd")
             else
-            {
-                throw NSError(domain: "NSPersistentStoreCoordinator", code: 2, description: "Failed to create NSPersistentStoreCoordinator", reason: "Could not create ManagedObject model from URL \(modelURL)", underlyingError: nil)
-            }
-        }
-        else
         {
             throw NSError(domain: "NSPersistentStoreCoordinator", code: 1, description: "Failed to create NSPersistentStoreCoordinator", reason: "Could not find ManagedObject model called \(modelName) in \(bundle)", underlyingError: nil)
+        }
+        
+        guard let model = NSManagedObjectModel(contentsOf: modelURL) else
+        {
+            throw NSError(domain: "NSPersistentStoreCoordinator", code: 2, description: "Failed to create NSPersistentStoreCoordinator", reason: "Could not create ManagedObject model from URL \(modelURL)", underlyingError: nil)
+        }
+        
+        self.init(managedObjectModel: model)
+        
+        do
+        {
+            if storeType == .sqLite && prepopulate
+            {
+                try preloadSqLite(forModelNamed: modelName, inBundle: bundle)
+            }
+            
+            try addPersistentStore(ofType: storeType.persistentStoreType, configurationName: nil, at: storeType.persistentStoreFileURL(modelName), options: nil)
+        }
+        catch let internalError as NSError
+        {
+            throw NSError(domain: "NSPersistentStoreCoordinator", code: 3, description: "Failed to create NSPersistentStoreCoordinator", reason: "Could not create Persistent Store", underlyingError: internalError)
         }
     }
 }
