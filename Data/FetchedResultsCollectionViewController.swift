@@ -8,7 +8,8 @@
 
 import UIKit
 import CoreData
-import SwiftPlus
+import Plus
+import UserInterface
 
 open class FetchedResultsCollectionViewController: UICollectionViewController, FetchedResultsControllerDelegate, ManagedObjectsController
 {
@@ -143,7 +144,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.insertSection( section ) }
+        blockOperation?.addExecutionBlock { collectionView.insert(sectionAt: section) }
     }
     
     func controller(_ controller: FetchedResultsController, didDeleteSection section: Int)
@@ -152,7 +153,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.deleteSection( section ) }
+        blockOperation?.addExecutionBlock { collectionView.delete(sectionAt: section) }
     }
     
     func controller(_ controller: FetchedResultsController, didUpdateSection section: Int)
@@ -161,7 +162,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.reloadSection( section ) }
+        blockOperation?.addExecutionBlock { collectionView.reload(sectionAt: section) }
     }
     
     func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
@@ -178,7 +179,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
             }
             else
             {
-                blockOperation?.addExecutionBlock { collectionView.insertItem(at: path ) }
+                blockOperation?.addExecutionBlock { collectionView.insert(itemAt: path ) }
             }
         }
         else
@@ -199,7 +200,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         }
         else
         {
-            blockOperation?.addExecutionBlock { collectionView.deleteItem(at: path ) }
+            blockOperation?.addExecutionBlock { collectionView.delete(itemAt: path) }
         }
     }
     

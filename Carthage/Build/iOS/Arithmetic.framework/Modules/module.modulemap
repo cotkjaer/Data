@@ -1,0 +1,10 @@
+framework module Arithmetic {
+  umbrella header "Arithmetic.h"
+
+  export *
+  module * { export * }
+}
+
+module Arithmetic.Swift {
+    header "Arithmetic-Swift.h"
+}

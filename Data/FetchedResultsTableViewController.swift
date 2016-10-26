@@ -8,7 +8,8 @@
 
 import UIKit
 import CoreData
-import SwiftPlus
+import Plus
+import Graphics
 
 open class FetchedResultsTableViewController: UITableViewController, FetchedResultsControllerDelegate, ManagedObjectsController
 {

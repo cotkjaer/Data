@@ -1,0 +1,10 @@
+framework module UserInterface {
+  umbrella header "UserInterface.h"
+
+  export *
+  module * { export * }
+}
+
+module UserInterface.Swift {
+    header "UserInterface-Swift.h"
+}

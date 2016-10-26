@@ -7,7 +7,7 @@
 //
 
 import CoreData
-import SwiftPlus
+import Plus
 
 extension NSManagedObjectContext
 {

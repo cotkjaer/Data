@@ -10,7 +10,9 @@
 
 import UIKit
 import CoreData
-import SwiftPlus
+import Plus
+import Collections
+import UserInterface
 
 public protocol ManagedObjectDetailController: class
 {

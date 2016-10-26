@@ -8,7 +8,8 @@
 
 import Foundation
 import CoreData
-import SwiftPlus
+import Plus
+import UserInterface
 
 public protocol ManagedObjectsController: ManagedObjectDetailControllerDelegate
 {

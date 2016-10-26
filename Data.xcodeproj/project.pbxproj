@@ -7,12 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F38B7EA1DBE3D6700D36455 /* SwiftPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; };
-		8F38B7EB1DBE3D7700D36455 /* SwiftPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8F38B7EC1DBE53DF00D36455 /* SwiftPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */; };
 		8F38B8001DBF557900D36455 /* DemoModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */; };
 		8F38B8011DBF557900D36455 /* DemoModel.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */; };
 		8F38B8021DBF557900D36455 /* DemoModel.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */; };
+		8F38B84D1DBF938600D36455 /* Animation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8451DBF938600D36455 /* Animation.framework */; };
+		8F38B84E1DBF938600D36455 /* Arithmetic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8461DBF938600D36455 /* Arithmetic.framework */; };
+		8F38B84F1DBF938600D36455 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8471DBF938600D36455 /* Collections.framework */; };
+		8F38B8501DBF938600D36455 /* Easing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8481DBF938600D36455 /* Easing.framework */; };
+		8F38B8511DBF938600D36455 /* Graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8491DBF938600D36455 /* Graphics.framework */; };
+		8F38B8521DBF938600D36455 /* Interpolation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84A1DBF938600D36455 /* Interpolation.framework */; };
+		8F38B8531DBF938600D36455 /* Shadow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84B1DBF938600D36455 /* Shadow.framework */; };
+		8F38B8541DBF938600D36455 /* UserInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84C1DBF938600D36455 /* UserInterface.framework */; };
+		8F38B8551DBF939A00D36455 /* Animation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8451DBF938600D36455 /* Animation.framework */; };
+		8F38B8561DBF939A00D36455 /* Animation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8451DBF938600D36455 /* Animation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B8571DBF939A00D36455 /* Arithmetic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8461DBF938600D36455 /* Arithmetic.framework */; };
+		8F38B8581DBF939A00D36455 /* Arithmetic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8461DBF938600D36455 /* Arithmetic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B8591DBF939A00D36455 /* Collections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8471DBF938600D36455 /* Collections.framework */; };
+		8F38B85A1DBF939A00D36455 /* Collections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8471DBF938600D36455 /* Collections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B85B1DBF939A00D36455 /* Easing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8481DBF938600D36455 /* Easing.framework */; };
+		8F38B85C1DBF939A00D36455 /* Easing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8481DBF938600D36455 /* Easing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B85D1DBF939A00D36455 /* Graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8491DBF938600D36455 /* Graphics.framework */; };
+		8F38B85E1DBF939A00D36455 /* Graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8491DBF938600D36455 /* Graphics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B85F1DBF939A00D36455 /* Interpolation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84A1DBF938600D36455 /* Interpolation.framework */; };
+		8F38B8601DBF939A00D36455 /* Interpolation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84A1DBF938600D36455 /* Interpolation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B8611DBF939A00D36455 /* Shadow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84B1DBF938600D36455 /* Shadow.framework */; };
+		8F38B8621DBF939A00D36455 /* Shadow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84B1DBF938600D36455 /* Shadow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B8631DBF939A00D36455 /* UserInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84C1DBF938600D36455 /* UserInterface.framework */; };
+		8F38B8641DBF939A00D36455 /* UserInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B84C1DBF938600D36455 /* UserInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F38B8661DBFAA0F00D36455 /* Plus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8651DBFAA0F00D36455 /* Plus.framework */; };
+		8F38B8671DBFAA1F00D36455 /* Plus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8651DBFAA0F00D36455 /* Plus.framework */; };
+		8F38B8681DBFAA1F00D36455 /* Plus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F38B8651DBFAA0F00D36455 /* Plus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8F79384D1D06F853002FFAD1 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 8F79384C1D06F853002FFAD1 /* Cartfile.private */; };
 		8FA50D531CAC169F005D28B6 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 8FA50D521CAC169F005D28B6 /* Cartfile */; };
 		8FA50D6E1CAD0136005D28B6 /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6C1CAD0136005D28B6 /* TestModel.xcdatamodeld */; };
@@ -69,8 +93,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8F38B7EB1DBE3D7700D36455 /* SwiftPlus.framework in Embed Frameworks */,
+				8F38B85A1DBF939A00D36455 /* Collections.framework in Embed Frameworks */,
+				8F38B8641DBF939A00D36455 /* UserInterface.framework in Embed Frameworks */,
 				8FE1D7261CAD83D600A8C681 /* Data.framework in Embed Frameworks */,
+				8F38B8621DBF939A00D36455 /* Shadow.framework in Embed Frameworks */,
+				8F38B8601DBF939A00D36455 /* Interpolation.framework in Embed Frameworks */,
+				8F38B85C1DBF939A00D36455 /* Easing.framework in Embed Frameworks */,
+				8F38B8581DBF939A00D36455 /* Arithmetic.framework in Embed Frameworks */,
+				8F38B85E1DBF939A00D36455 /* Graphics.framework in Embed Frameworks */,
+				8F38B8681DBFAA1F00D36455 /* Plus.framework in Embed Frameworks */,
+				8F38B8561DBF939A00D36455 /* Animation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,10 +110,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftPlus.framework; path = Carthage/Build/iOS/SwiftPlus.framework; sourceTree = "<group>"; };
 		8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DemoModel.sqlite; sourceTree = "<group>"; };
 		8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DemoModel.sqlite-shm"; sourceTree = "<group>"; };
 		8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DemoModel.sqlite-wal"; sourceTree = "<group>"; };
+		8F38B8451DBF938600D36455 /* Animation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Animation.framework; path = Carthage/Build/iOS/Animation.framework; sourceTree = "<group>"; };
+		8F38B8461DBF938600D36455 /* Arithmetic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Arithmetic.framework; path = Carthage/Build/iOS/Arithmetic.framework; sourceTree = "<group>"; };
+		8F38B8471DBF938600D36455 /* Collections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Collections.framework; path = Carthage/Build/iOS/Collections.framework; sourceTree = "<group>"; };
+		8F38B8481DBF938600D36455 /* Easing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Easing.framework; path = Carthage/Build/iOS/Easing.framework; sourceTree = "<group>"; };
+		8F38B8491DBF938600D36455 /* Graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Graphics.framework; path = Carthage/Build/iOS/Graphics.framework; sourceTree = "<group>"; };
+		8F38B84A1DBF938600D36455 /* Interpolation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Interpolation.framework; path = Carthage/Build/iOS/Interpolation.framework; sourceTree = "<group>"; };
+		8F38B84B1DBF938600D36455 /* Shadow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shadow.framework; path = Carthage/Build/iOS/Shadow.framework; sourceTree = "<group>"; };
+		8F38B84C1DBF938600D36455 /* UserInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserInterface.framework; path = Carthage/Build/iOS/UserInterface.framework; sourceTree = "<group>"; };
+		8F38B8651DBFAA0F00D36455 /* Plus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Plus.framework; path = Carthage/Build/iOS/Plus.framework; sourceTree = "<group>"; };
 		8F79384C1D06F853002FFAD1 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		8F79384E1D06F86F002FFAD1 /* carthage_update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = carthage_update.sh; sourceTree = "<group>"; };
 		8FA50D521CAC169F005D28B6 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -123,7 +163,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F38B7EA1DBE3D6700D36455 /* SwiftPlus.framework in Frameworks */,
+				8F38B8661DBFAA0F00D36455 /* Plus.framework in Frameworks */,
+				8F38B84D1DBF938600D36455 /* Animation.framework in Frameworks */,
+				8F38B84E1DBF938600D36455 /* Arithmetic.framework in Frameworks */,
+				8F38B84F1DBF938600D36455 /* Collections.framework in Frameworks */,
+				8F38B8501DBF938600D36455 /* Easing.framework in Frameworks */,
+				8F38B8511DBF938600D36455 /* Graphics.framework in Frameworks */,
+				8F38B8521DBF938600D36455 /* Interpolation.framework in Frameworks */,
+				8F38B8531DBF938600D36455 /* Shadow.framework in Frameworks */,
+				8F38B8541DBF938600D36455 /* UserInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +187,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F38B7EC1DBE53DF00D36455 /* SwiftPlus.framework in Frameworks */,
+				8F38B8591DBF939A00D36455 /* Collections.framework in Frameworks */,
+				8F38B8631DBF939A00D36455 /* UserInterface.framework in Frameworks */,
 				8FE1D7251CAD83D600A8C681 /* Data.framework in Frameworks */,
+				8F38B8611DBF939A00D36455 /* Shadow.framework in Frameworks */,
+				8F38B85F1DBF939A00D36455 /* Interpolation.framework in Frameworks */,
+				8F38B85B1DBF939A00D36455 /* Easing.framework in Frameworks */,
+				8F38B8571DBF939A00D36455 /* Arithmetic.framework in Frameworks */,
+				8F38B85D1DBF939A00D36455 /* Graphics.framework in Frameworks */,
+				8F38B8671DBFAA1F00D36455 /* Plus.framework in Frameworks */,
+				8F38B8551DBF939A00D36455 /* Animation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +206,15 @@
 		8F38B7E81DBE3D6600D36455 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F38B7E91DBE3D6700D36455 /* SwiftPlus.framework */,
+				8F38B8651DBFAA0F00D36455 /* Plus.framework */,
+				8F38B8451DBF938600D36455 /* Animation.framework */,
+				8F38B8461DBF938600D36455 /* Arithmetic.framework */,
+				8F38B8471DBF938600D36455 /* Collections.framework */,
+				8F38B8481DBF938600D36455 /* Easing.framework */,
+				8F38B8491DBF938600D36455 /* Graphics.framework */,
+				8F38B84A1DBF938600D36455 /* Interpolation.framework */,
+				8F38B84B1DBF938600D36455 /* Shadow.framework */,
+				8F38B84C1DBF938600D36455 /* UserInterface.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -1,0 +1,10 @@
+framework module Animation {
+  umbrella header "Animation.h"
+
+  export *
+  module * { export * }
+}
+
+module Animation.Swift {
+    header "Animation-Swift.h"
+}

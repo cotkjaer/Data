@@ -1,0 +1,10 @@
+framework module Shadow {
+  umbrella header "Shadow.h"
+
+  export *
+  module * { export * }
+}
+
+module Shadow.Swift {
+    header "Shadow-Swift.h"
+}

@@ -7,7 +7,8 @@
 //
 
 import CoreData
-import SwiftPlus
+import Plus
+import UserInterface
 
 extension NSPersistentStoreCoordinator
 {

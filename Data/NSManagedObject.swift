@@ -8,7 +8,8 @@
 
 import CoreData
 import UIKit
-import SwiftPlus
+import Plus
+import UserInterface
 
 extension NSManagedObject
 {
