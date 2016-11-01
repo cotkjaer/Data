@@ -1,0 +1,10 @@
+framework module Error {
+  umbrella header "Error.h"
+
+  export *
+  module * { export * }
+}
+
+module Error.Swift {
+    header "Error-Swift.h"
+}

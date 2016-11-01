@@ -7,8 +7,9 @@
 //
 
 import CoreData
-import Plus
 import UserInterface
+import File
+import Error
 
 extension NSPersistentStoreCoordinator
 {

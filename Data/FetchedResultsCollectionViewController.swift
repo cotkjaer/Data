@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Plus
 import UserInterface
 
 open class FetchedResultsCollectionViewController: UICollectionViewController, FetchedResultsControllerDelegate, ManagedObjectsController

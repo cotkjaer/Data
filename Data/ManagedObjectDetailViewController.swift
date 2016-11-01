@@ -10,7 +10,6 @@
 
 import UIKit
 import CoreData
-import Plus
 import Collections
 import UserInterface
 

@@ -8,7 +8,6 @@
 
 import CoreData
 import UIKit
-import Plus
 import UserInterface
 
 extension NSManagedObject
@@ -21,10 +20,6 @@ extension NSManagedObject
         return classNameComponents.last!
     }
     
-//    public class func fetchRequest() -> NSFetchRequest<NSManagedObject>
-//    {
-//        return NSFetchRequest(entityName: entityName)
-//    }
     
     public func deleteWithConfirmation(_ controller: UIViewController, completion: ((_ deleted:Bool, _ error: NSError?)->())?)
     {

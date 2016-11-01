@@ -7,7 +7,6 @@
 //
 
 import CoreData
-import Plus
 
 extension NSManagedObjectContext
 {
@@ -58,12 +57,19 @@ extension NSManagedObjectContext
     
     fileprivate func entityDescriptionFor<T: NSManagedObject>(_ type: T.Type) -> NSEntityDescription?
     {
+        guard let name = type.entity().name else { return nil }
+        
+        return NSEntityDescription.entity(forEntityName: name, in: self)
+/*
+        guard let entity = type.entity() else
+        
         if let entityDescription = NSEntityDescription.entity(forEntityName: typeName(type), in: self)
         {
             return entityDescription
         }
         
         return nil
+ */
     }
     
     public func insert<T: NSManagedObject>(_ type: T.Type) -> T?
@@ -129,7 +135,7 @@ extension NSManagedObjectContext
     public func any<T: NSManagedObject>(_ type: T.Type, predicate: NSPredicate? = nil) -> T?
     {
         let fetchRequest = NSFetchRequest<T>()
-        fetchRequest.entity = entityDescriptionFor(type)
+        fetchRequest.entity = type.entity()// entityDescriptionFor(type)
         fetchRequest.predicate = predicate //NSPredicate(value: true)
         fetchRequest.fetchLimit = 1
         
@@ -140,7 +146,7 @@ extension NSManagedObjectContext
     {
         let fetchRequest = NSFetchRequest<T>()
         
-        fetchRequest.entity = entityDescriptionFor(type)
+        fetchRequest.entity = type.entity()//entityDescriptionFor(type)
         fetchRequest.predicate = predicate // ?? NSPredicate(value: true)
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.fetchLimit = 1
