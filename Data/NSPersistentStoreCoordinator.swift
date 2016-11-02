@@ -44,7 +44,8 @@ extension NSPersistentStoreCoordinator
                 try preloadSqLite(forModelNamed: modelName, inBundle: bundle)
             }
             
-            try addPersistentStore(ofType: storeType.persistentStoreType, configurationName: nil, at: storeType.persistentStoreFileURL(modelName), options: nil)
+            try addPersistentStore(ofType: storeType.persistentStoreType, configurationName: nil, at: storeType.persistentStoreFileURL(modelName), options: [NSMigratePersistentStoresAutomaticallyOption: true,
+                                                                                                                                                             NSInferMappingModelAutomaticallyOption: true])
         }
         catch let internalError as NSError
         {
