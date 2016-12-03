@@ -152,7 +152,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.delete(sectionAt: section) }
+        blockOperation?.addExecutionBlock { collectionView.delete(section) }
     }
     
     func controller(_ controller: FetchedResultsController, didUpdateSection section: Int)
@@ -199,7 +199,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         }
         else
         {
-            blockOperation?.addExecutionBlock { collectionView.delete(itemAt: path) }
+            blockOperation?.addExecutionBlock { collectionView.delete(path) }
         }
     }
     
@@ -263,7 +263,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
                 
             case .changed:
                 
-                debugPrint(gesture.view)
+                debugPrint("view: \(gesture.view)")
                 
                 collectionView.updateInteractiveMovementTargetPosition(location)
                 
