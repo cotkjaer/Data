@@ -178,6 +178,7 @@ extension NSManagedObjectContext
         return (false, nil)
     }
     
+    @discardableResult
     public func saveWithAlert() -> Bool
     {
         let (saved, error) = saveSafely()

@@ -37,14 +37,14 @@ open class FetchedResultsTableViewController: UITableViewController, FetchedResu
     
     // MARK: - Objects
     
-    open func objectForIndexPath(_ optionalIndexPath: IndexPath?) -> NSManagedObject?
+    open func object(at optionalIndexPath: IndexPath?) -> NSManagedObject?
     {
-        return fetchedResultsController.objectForIndexPath(optionalIndexPath)
+        return fetchedResultsController.object(at: optionalIndexPath)
     }
     
-    open func indexPathForObject(_ optionalObject: NSManagedObject?) -> IndexPath?
+    open func indexPath(forObject optionalObject: NSManagedObject?) -> IndexPath?
     {
-        return fetchedResultsController.indexPathForObject(optionalObject)
+        return fetchedResultsController.indexPath(forObject: optionalObject)
     }
     
     open func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
@@ -52,9 +52,9 @@ open class FetchedResultsTableViewController: UITableViewController, FetchedResu
         return fetchedResultsController.indexPathForObjectWithID(optionalID)
     }
     
-    open func numberOfObjects(_ inSection: Int? = nil) -> Int
+    open func numberOfObjects(inSection: Int? = nil) -> Int
     {
-        return fetchedResultsController.numberOfObjects(inSection)
+        return fetchedResultsController.numberOfObjects(inSection: inSection)
     }
 
     // MARK: - Lifecycle
@@ -77,31 +77,31 @@ open class FetchedResultsTableViewController: UITableViewController, FetchedResu
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return fetchedResultsController.numberOfObjects(section)
+        return fetchedResultsController.numberOfObjects(inSection: section)
     }
     
-    open func cellReuseIdentifierForIndexPath(_ indexPath: IndexPath) -> String
+    open func cellReuseIdentifier(for indexPath: IndexPath) -> String
     {
         return "Cell"
     }
     
-    open func configureCell(_ cell: UITableViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: IndexPath)
+    open func configure(cell: UITableViewCell, for object: NSManagedObject?, at indexPath: IndexPath)
     {
         debugPrint("override configureCell")
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifierForIndexPath(indexPath), for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier(for: indexPath), for: indexPath)
         
-        configureCell(cell, forObject: objectForIndexPath(indexPath), atIndexPath: indexPath)
+        configure(cell: cell, for: object(at: indexPath), at: indexPath)
         
         return cell
     }
     
     override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return fetchedResultsController.titleForSection(section)
+        return fetchedResultsController.title(forSection: section)
     }
     
     // MARK: - Rearranging
@@ -135,20 +135,20 @@ extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
 {
     func controllerWillChangeContent(_ controller: FetchedResultsController)
     {
+        guard !ignoreControllerChanges else { return }
+
         debugPrint("\(self) will change")
-        if !ignoreControllerChanges
-        {
-            tableView.beginUpdates()
-        }
+        
+        tableView.beginUpdates()
     }
     
     func controllerDidChangeContent(_ controller: FetchedResultsController)
     {
         debugPrint("\(self) did change")
-        if !ignoreControllerChanges
-        {
-            tableView.endUpdates()
-        }
+
+        guard !ignoreControllerChanges else { return }
+        
+        tableView.endUpdates()
     }
     
     func controller(_ controller: FetchedResultsController, didInsertSection section: Int)
@@ -179,12 +179,6 @@ extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
     func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
     {
         tableView.reloadRows(at: [path], with: .fade)
-//        if  let cell = tableView.cellForRowAtIndexPath(path),
-//            let object = objectForIndexPath(path)
-//        {
-//            debugPrint("\(self) did update: \(path)")
-//            configureCell(cell, forObject: object, atIndexPath: path)
-//        }
     }
     
     func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
@@ -246,7 +240,7 @@ extension FetchedResultsTableViewController : NSFetchedResultsControllerDelegate
                 
                 if let updatedIndexPath = indexPath,
                     let cell = self.tableView.cellForRowAtIndexPath(updatedIndexPath),
-                    let object = objectForIndexPath(updatedIndexPath)
+                    let object = object(at: updatedIndexPath)
                 {
                     debugPrint("\(self) did update: \(updatedIndexPath)")
                     configureCell(cell, forObject: object, atIndexPath: updatedIndexPath)
@@ -348,7 +342,7 @@ extension FetchedResultsTableViewController
                 snapshot.center = cell.center
                 snapshot.alpha = 0
                 
-                draggingOffset =  location - cell.center
+                draggingOffset = location - cell.center
                 
                 self.snapshot = snapshot
                 
@@ -383,11 +377,10 @@ extension FetchedResultsTableViewController
                 
                 if indexPath != sourceIndexPath
                 {
-                    
                     ignoreControllerChanges = true; defer { ignoreControllerChanges = false }
                     
-                    guard let o1 = objectForIndexPath(indexPath) else { return }
-                    guard let o2 = objectForIndexPath(sourceIndexPath) else { return }
+                    guard let o1 = object(at: indexPath) else { return }
+                    guard let o2 = object(at: sourceIndexPath) else { return }
                     
                     guard let key = fetchRequest?.sortDescriptors?.first?.key else { return }
                     
@@ -395,20 +388,7 @@ extension FetchedResultsTableViewController
                     
                     o2.setValue(v1, forKey: key)
                     o1.setValue(v2, forKey: key)
-                    
-//                    fetchedResultsController.fetch()
-//
-//                    // ... update data source.
-//                    if let o1 = fetchedResultsController.objectForIndexPath(indexPath), let
-//                        o2 = fetchedResultsController.objectForIndexPath(sourceIndexPath)
-//                    {
-//                        if let v1 = o1.valueForKey("sortOrder"), let v2 = o2.valueForKey("sortOrder")
-//                        {
-//                            o2.setValue(v1, forKey: "sortOrder")
-//                            o1.setValue(v2, forKey: "sortOrder")
-//                        }
-//                    }
-                    
+                
                     // ... move the rows.
                     tableView.moveRow(at: sourceIndexPath, to: indexPath)
                     

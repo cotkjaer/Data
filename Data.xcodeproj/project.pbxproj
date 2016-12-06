@@ -10,6 +10,13 @@
 		8F38B8001DBF557900D36455 /* DemoModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */; };
 		8F38B8011DBF557900D36455 /* DemoModel.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */; };
 		8F38B8021DBF557900D36455 /* DemoModel.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */; };
+		8F46C2B01DF5A2D8003E4634 /* Collection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F46C2AF1DF5A2D8003E4634 /* Collection.storyboard */; };
+		8F46C2B21DF5A2EF003E4634 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F46C2B11DF5A2EF003E4634 /* CollectionViewController.swift */; };
+		8F46C2B41DF5A3C0003E4634 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F46C2B31DF5A3C0003E4634 /* CollectionViewCell.swift */; };
+		8F46C2B61DF5A5F1003E4634 /* Embedded.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F46C2B51DF5A5F1003E4634 /* Embedded.storyboard */; };
+		8F46C2B81DF5A603003E4634 /* EmbeddedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F46C2B71DF5A603003E4634 /* EmbeddedViewController.swift */; };
+		8F46C2BA1DF5A678003E4634 /* Table.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F46C2B91DF5A678003E4634 /* Table.storyboard */; };
+		8F46C2BE1DF6A97B003E4634 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F46C2BD1DF6A97B003E4634 /* FetchedResultsController.swift */; };
 		8F79384D1D06F853002FFAD1 /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 8F79384C1D06F853002FFAD1 /* Cartfile.private */; };
 		8FA50D531CAC169F005D28B6 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 8FA50D521CAC169F005D28B6 /* Cartfile */; };
 		8FA50D6E1CAD0136005D28B6 /* TestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FA50D6C1CAD0136005D28B6 /* TestModel.xcdatamodeld */; };
@@ -117,6 +124,13 @@
 		8F38B7FD1DBF557900D36455 /* DemoModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DemoModel.sqlite; sourceTree = "<group>"; };
 		8F38B7FE1DBF557900D36455 /* DemoModel.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DemoModel.sqlite-shm"; sourceTree = "<group>"; };
 		8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DemoModel.sqlite-wal"; sourceTree = "<group>"; };
+		8F46C2AF1DF5A2D8003E4634 /* Collection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Collection.storyboard; sourceTree = "<group>"; };
+		8F46C2B11DF5A2EF003E4634 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		8F46C2B31DF5A3C0003E4634 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		8F46C2B51DF5A5F1003E4634 /* Embedded.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Embedded.storyboard; sourceTree = "<group>"; };
+		8F46C2B71DF5A603003E4634 /* EmbeddedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbeddedViewController.swift; sourceTree = "<group>"; };
+		8F46C2B91DF5A678003E4634 /* Table.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Table.storyboard; sourceTree = "<group>"; };
+		8F46C2BD1DF6A97B003E4634 /* FetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsController.swift; sourceTree = "<group>"; };
 		8F79384C1D06F853002FFAD1 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		8F79384E1D06F86F002FFAD1 /* carthage_update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = carthage_update.sh; sourceTree = "<group>"; };
 		8FA50D521CAC169F005D28B6 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -276,6 +290,7 @@
 				8FD41EB41C74AB6F00DDE89D /* FetchedResultsCollectionViewController.swift */,
 				8FD41EB71C74AB6F00DDE89D /* ManagedObjectDetailViewController.swift */,
 				8FA50D9F1CAD4435005D28B6 /* ManagedObjectsController.swift */,
+				8F46C2BD1DF6A97B003E4634 /* FetchedResultsController.swift */,
 				8FD41EAF1C74AB4D00DDE89D /* Supporting Files */,
 			);
 			path = Data;
@@ -308,8 +323,14 @@
 				8F38B7FF1DBF557900D36455 /* DemoModel.sqlite-wal */,
 				8FE1D73D1CAD872600A8C681 /* Data Model */,
 				8FE1D7151CAD827F00A8C681 /* AppDelegate.swift */,
+				8F46C2B91DF5A678003E4634 /* Table.storyboard */,
 				8FE1D7171CAD827F00A8C681 /* TableViewController.swift */,
 				8FE1D7191CAD827F00A8C681 /* Main.storyboard */,
+				8F46C2AF1DF5A2D8003E4634 /* Collection.storyboard */,
+				8F46C2B11DF5A2EF003E4634 /* CollectionViewController.swift */,
+				8F46C2B31DF5A3C0003E4634 /* CollectionViewCell.swift */,
+				8F46C2B51DF5A5F1003E4634 /* Embedded.storyboard */,
+				8F46C2B71DF5A603003E4634 /* EmbeddedViewController.swift */,
 				8FE1D71C1CAD827F00A8C681 /* Assets.xcassets */,
 				8FE1D71E1CAD827F00A8C681 /* LaunchScreen.storyboard */,
 				8FE1D7211CAD828000A8C681 /* Info.plist */,
@@ -464,6 +485,9 @@
 				8F38B8011DBF557900D36455 /* DemoModel.sqlite-shm in Resources */,
 				8FE1D7201CAD827F00A8C681 /* LaunchScreen.storyboard in Resources */,
 				8F38B8021DBF557900D36455 /* DemoModel.sqlite-wal in Resources */,
+				8F46C2BA1DF5A678003E4634 /* Table.storyboard in Resources */,
+				8F46C2B01DF5A2D8003E4634 /* Collection.storyboard in Resources */,
+				8F46C2B61DF5A5F1003E4634 /* Embedded.storyboard in Resources */,
 				8F38B8001DBF557900D36455 /* DemoModel.sqlite in Resources */,
 				8FE1D71D1CAD827F00A8C681 /* Assets.xcassets in Resources */,
 				8FE1D71B1CAD827F00A8C681 /* Main.storyboard in Resources */,
@@ -482,6 +506,7 @@
 				8FD41EB81C74AB6F00DDE89D /* NSManagedObject.swift in Sources */,
 				8FD41EBA1C74AB6F00DDE89D /* NSManagedObjectContext.swift in Sources */,
 				8FA50DA01CAD4435005D28B6 /* ManagedObjectsController.swift in Sources */,
+				8F46C2BE1DF6A97B003E4634 /* FetchedResultsController.swift in Sources */,
 				8FD41EBC1C74AB6F00DDE89D /* FetchedResultsCollectionViewController.swift in Sources */,
 				8FD41EBB1C74AB6F00DDE89D /* FetchedResultsTableViewController.swift in Sources */,
 				8FD41EBD1C74AB6F00DDE89D /* NSPersistentStoreCoordinator.swift in Sources */,
@@ -507,8 +532,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F46C2B81DF5A603003E4634 /* EmbeddedViewController.swift in Sources */,
+				8F46C2B21DF5A2EF003E4634 /* CollectionViewController.swift in Sources */,
 				8FE1D7381CAD845100A8C681 /* DemoModel.xcdatamodeld in Sources */,
 				8FE1D7181CAD827F00A8C681 /* TableViewController.swift in Sources */,
+				8F46C2B41DF5A3C0003E4634 /* CollectionViewCell.swift in Sources */,
 				8FE1D73C1CAD871800A8C681 /* Message.swift in Sources */,
 				8FE1D73B1CAD871800A8C681 /* Message+CoreDataProperties.swift in Sources */,
 				8FE1D7161CAD827F00A8C681 /* AppDelegate.swift in Sources */,

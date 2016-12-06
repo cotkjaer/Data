@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="YTx-1u-2YH">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Embedded-->
+        <scene sceneID="lqJ-yb-h0o">
+            <objects>
+                <viewController id="YTx-1u-2YH" customClass="EmbeddedViewController" customModule="DataDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yZc-WY-Ch6"/>
+                        <viewControllerLayoutGuide type="bottom" id="TZR-dJ-7BU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yH3-tv-Zsl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYg-mQ-LYS">
+                                <rect key="frame" x="16" y="28" width="343" height="287"/>
+                                <connections>
+                                    <segue destination="kM7-P1-wc3" kind="embed" id="bNS-ka-RLV"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74y-9K-G2C">
+                                <rect key="frame" x="16" y="323" width="343" height="287"/>
+                                <connections>
+                                    <segue destination="bAC-fT-luT" kind="embed" id="kEK-cH-Xg8"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TZR-dJ-7BU" firstAttribute="top" secondItem="74y-9K-G2C" secondAttribute="bottom" constant="8" symbolic="YES" id="2jE-Hh-ylH"/>
+                            <constraint firstItem="74y-9K-G2C" firstAttribute="leading" secondItem="yH3-tv-Zsl" secondAttribute="leadingMargin" id="FrD-zc-FWB"/>
+                            <constraint firstItem="74y-9K-G2C" firstAttribute="top" secondItem="zYg-mQ-LYS" secondAttribute="bottom" constant="8" symbolic="YES" id="IOM-yR-dKD"/>
+                            <constraint firstItem="zYg-mQ-LYS" firstAttribute="leading" secondItem="yH3-tv-Zsl" secondAttribute="leadingMargin" id="Ky8-nY-Z5L"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zYg-mQ-LYS" secondAttribute="trailing" id="Lzp-xi-Uh4"/>
+                            <constraint firstItem="74y-9K-G2C" firstAttribute="height" secondItem="zYg-mQ-LYS" secondAttribute="height" id="P8U-bv-KFn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="74y-9K-G2C" secondAttribute="trailing" id="hi1-aL-6f6"/>
+                            <constraint firstItem="zYg-mQ-LYS" firstAttribute="top" secondItem="yZc-WY-Ch6" secondAttribute="bottom" constant="8" symbolic="YES" id="myy-1V-2CI"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Embedded" id="yhV-RL-CeH"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f05-Uw-qIq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="7"/>
+        </scene>
+        <!--Table-->
+        <scene sceneID="yYa-eq-ONG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Table" id="kM7-P1-wc3" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pmC-bI-Uab" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="630" y="-50"/>
+        </scene>
+        <!--Collection-->
+        <scene sceneID="g2M-Fs-Jv8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Collection" id="bAC-fT-luT" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2e7-TA-HdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="653" y="70"/>
+        </scene>
+    </scenes>
+</document>

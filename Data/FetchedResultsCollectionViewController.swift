@@ -14,7 +14,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
 {
     fileprivate lazy var fetchedResultsController : FetchedResultsController = { let c = FetchedResultsController(); c.delegate = self; return c }()
     
-    /// Set this if you are updating the tabledata "manually" (e.g. when rearranging)
+    /// Set this if you are updating the data "manually" (e.g. when rearranging)
     open var ignoreControllerChanges: Bool = false
     
     open var managedObjectContext : NSManagedObjectContext?
@@ -35,14 +35,14 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
     
     // MARK: - Objects
     
-    open func objectForIndexPath(_ optionalIndexPath: IndexPath?) -> NSManagedObject?
+    open func object(at optionalIndexPath: IndexPath?) -> NSManagedObject?
     {
-        return fetchedResultsController.objectForIndexPath(optionalIndexPath)
+        return fetchedResultsController.object(at: optionalIndexPath)
     }
     
-    open func indexPathForObject(_ optionalObject: NSManagedObject?) -> IndexPath?
+    open func indexPath(forObject optionalObject: NSManagedObject?) -> IndexPath?
     {
-        return fetchedResultsController.indexPathForObject(optionalObject)
+        return fetchedResultsController.indexPath(forObject: optionalObject)
     }
     
     open func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
@@ -52,7 +52,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
     
     open func numberOfObjects(_ inSection: Int? = nil) -> Int
     {
-        return fetchedResultsController.numberOfObjects(inSection)
+        return fetchedResultsController.numberOfObjects(inSection: inSection)
     }
     
     // MARK: - Lifecycle
@@ -74,24 +74,24 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
     
     override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return fetchedResultsController.numberOfObjects(section)
+        return fetchedResultsController.numberOfObjects(inSection: section)
     }
     
-    open func cellReuseIdentifierForIndexPath(_ indexPath: IndexPath) -> String
+    open func cellReuseIdentifier(for indexPath: IndexPath) -> String
     {
         return "Cell"
     }
     
-    open func configureCell(_ cell: UICollectionViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: IndexPath)
+    open func configure(cell: UICollectionViewCell, for object: NSManagedObject?, at indexPath: IndexPath)
     {
         debugPrint("override configureCell")
     }
     
     final override public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifierForIndexPath(indexPath), for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier(for: indexPath), for: indexPath)
         
-        configureCell(cell, forObject: objectForIndexPath(indexPath), atIndexPath: indexPath)
+        configure(cell: cell, for: object(at: indexPath), at: indexPath)
         
         return cell
     }
@@ -209,8 +209,8 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         
         guard let collectionView = collectionView else { return }
 
+        return;
         blockOperation?.addExecutionBlock { collectionView.reloadItems( at: [ path ] ) }
-        
     }
     
     func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
@@ -322,8 +322,8 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
     {
         ignoreControllerChanges = true
         
-        guard let o1 = objectForIndexPath(destinationIndexPath) else { return }
-        guard let o2 = objectForIndexPath(sourceIndexPath) else { return }
+        guard let o1 = object(at: destinationIndexPath) else { return }
+        guard let o2 = object(at: sourceIndexPath) else { return }
         
         guard let key = fetchRequest?.sortDescriptors?.first?.key else { return }
         

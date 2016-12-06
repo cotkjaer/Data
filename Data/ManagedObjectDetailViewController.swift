@@ -30,8 +30,6 @@ public protocol ManagedObjectDetailControllerDelegate
     func managedObjectDetailControllerDidFinish(_ controller: ManagedObjectDetailController, saved: Bool)
 }
 
-
-
 // MARK: - ManagedObjectDetailController
 
 extension UINavigationController

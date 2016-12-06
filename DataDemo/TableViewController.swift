@@ -27,7 +27,7 @@ class TableViewController: FetchedResultsTableViewController
         super.viewDidLoad()
     }
 
-    override func configureCell(_ cell: UITableViewCell, forObject object: NSManagedObject?, atIndexPath indexPath: IndexPath)
+    override func configure(cell: UITableViewCell, for object: NSManagedObject?, at indexPath: IndexPath)
     {
         guard let message = object as? Message else { return }
         
