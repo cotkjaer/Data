@@ -45,9 +45,9 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         return fetchedResultsController.indexPath(forObject: optionalObject)
     }
     
-    open func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
+    open func indexPath(forObjectID optionalID: NSManagedObjectID?) -> IndexPath?
     {
-        return fetchedResultsController.indexPathForObjectWithID(optionalID)
+        return fetchedResultsController.indexPath(forObjectID: optionalID)
     }
     
     open func numberOfObjects(_ inSection: Int? = nil) -> Int
@@ -164,7 +164,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         blockOperation?.addExecutionBlock { collectionView.reload(sectionAt: section) }
     }
     
-    func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didInsertObject object: Any, at path: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
@@ -187,7 +187,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         }
     }
     
-    func controller(_ controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didDeleteObject object: Any, at path: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
@@ -203,7 +203,7 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         }
     }
     
-    func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didUpdateObject object: Any, at path: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
@@ -213,13 +213,13 @@ open class FetchedResultsCollectionViewController: UICollectionViewController, F
         blockOperation?.addExecutionBlock { collectionView.reloadItems( at: [ path ] ) }
     }
     
-    func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
+    func controller(_ controller: FetchedResultsController, didMoveObject object: Any, at: IndexPath, to: IndexPath)
     {
         guard !ignoreControllerChanges else { return }
         
         guard let collectionView = collectionView else { return }
 
-        blockOperation?.addExecutionBlock { collectionView.moveItem(at: atIndexPath, to: toIndexPath ) }
+        blockOperation?.addExecutionBlock { collectionView.moveItem(at: at, to: to ) }
     }
     
     // MARK: - Rearranging

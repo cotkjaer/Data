@@ -16,13 +16,13 @@ internal protocol FetchedResultsControllerDelegate
     
     // MARK: - Objects
     
-    func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didInsertObject object: Any, at path: IndexPath)
     
-    func controller(_ controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didDeleteObject object: Any, at path: IndexPath)
     
-    func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didUpdateObject object: Any, at path: IndexPath)
     
-    func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
+    func controller(_ controller: FetchedResultsController, didMoveObject object: Any, at: IndexPath, to: IndexPath)
     
     // MARK: - Sections
     
@@ -77,47 +77,38 @@ internal class FetchedResultsController : NSObject
     
     // MARK: - Objects
     
+    func object(with optionalObjectID: NSManagedObjectID?) -> NSManagedObject?
+    {
+        guard let id = optionalObjectID else { return nil }
+  
+        return fetchedResultsController?.fetchedObjects?.find(condition: { $0.objectID == id })
+    }
+
     func object(at optionalIndexPath: IndexPath?) -> NSManagedObject?
     {
-        if let indexPath = optionalIndexPath
-        {
-            return fetchedResultsController?.object(at: indexPath)
-        }
+        guard let indexPath = optionalIndexPath else { return nil }
         
-        return nil
+        return fetchedResultsController?.object(at: indexPath)
     }
+
     
     func indexPath(forObject optionalObject: NSManagedObject?) -> IndexPath?
     {
-        if let object = optionalObject
-        {
-            return fetchedResultsController?.indexPath(forObject: object)
-        }
+        guard let object = optionalObject else { return nil }
         
-        return nil
+        return fetchedResultsController?.indexPath(forObject: object)
     }
     
-    func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
+    func indexPath(forObjectID optionalID: NSManagedObjectID?) -> IndexPath?
     {
-        guard let id = optionalID else { return nil }
-        
-        
-        if let object = fetchedResultsController?.fetchedObjects?.find(condition: { $0.objectID == id })
-        {
-            return indexPath(forObject: object)
-        }
-        
-        return nil
+        return indexPath(forObject: object(with: optionalID))
     }
     
     func numberOfObjects(inSection: Int? = nil) -> Int
     {
-        if let section = inSection
-        {
-            return fetchedResultsController?.sections?.get(section)?.numberOfObjects ?? 0
-        }
+        guard let section = inSection else { return fetchedResultsController?.fetchedObjects?.count ?? 0 }
         
-        return fetchedResultsController?.fetchedObjects?.count ?? 0
+        return fetchedResultsController?.sections?.get(section)?.numberOfObjects ?? 0
     }
     
     func title(forSection section: Int? = nil) -> String?
@@ -168,19 +159,19 @@ extension FetchedResultsController: NSFetchedResultsControllerDelegate
         {
         case .insert where newIndexPath != nil:
             
-            delegate?.controller(self, didInsertObject: anObject as AnyObject, atIndexPath: newIndexPath!)
+            delegate?.controller(self, didInsertObject: anObject as AnyObject, at: newIndexPath!)
             
         case .delete where indexPath != nil:
             
-            delegate?.controller(self, didDeleteObject: anObject as AnyObject, atIndexPath: indexPath!)
+            delegate?.controller(self, didDeleteObject: anObject as AnyObject, at: indexPath!)
             
         case .update where indexPath != nil:
             
-            delegate?.controller(self, didUpdateObject: anObject as AnyObject, atIndexPath: indexPath!)
+            delegate?.controller(self, didUpdateObject: anObject as AnyObject, at: indexPath!)
             
         case .move where indexPath != nil && newIndexPath != nil:
             
-            delegate?.controller(self, didMoveObject: anObject as AnyObject, atIndexPath: indexPath!, toIndexPath: newIndexPath!)
+            delegate?.controller(self, didMoveObject: anObject as AnyObject, at: indexPath!, to: newIndexPath!)
             
         default:
             debugPrint("funky change-type: \(type) for item-change")

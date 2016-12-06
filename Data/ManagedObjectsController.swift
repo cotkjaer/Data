@@ -20,7 +20,7 @@ public protocol ManagedObjectsController: ManagedObjectDetailControllerDelegate
     
     func indexPath(forObject optionalObject: NSManagedObject?) -> IndexPath?
     
-    func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
+    func indexPath(forObjectID optionalID: NSManagedObjectID?) -> IndexPath?
 }
 
 // MARK: - Navigation

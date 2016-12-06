@@ -47,9 +47,9 @@ open class FetchedResultsTableViewController: UITableViewController, FetchedResu
         return fetchedResultsController.indexPath(forObject: optionalObject)
     }
     
-    open func indexPathForObjectWithID(_ optionalID: NSManagedObjectID?) -> IndexPath?
+    open func indexPath(forObjectID optionalID: NSManagedObjectID?) -> IndexPath?
     {
-        return fetchedResultsController.indexPathForObjectWithID(optionalID)
+        return fetchedResultsController.indexPath(forObjectID: optionalID)
     }
     
     open func numberOfObjects(inSection: Int? = nil) -> Int
@@ -125,7 +125,7 @@ extension FetchedResultsTableViewController
 {
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        prepareForSegue(segue, sender: sender as AnyObject?, cellsView: tableView)
+        prepareForSegue(segue, sender: sender as Any?, cellsView: tableView)
     }
 }
 
@@ -166,125 +166,29 @@ extension FetchedResultsTableViewController// : FetchedResultsControllerDelegate
         tableView.reloadSections(IndexSet(integer: section), with: .fade)
     }
     
-    func controller(_ controller: FetchedResultsController, didInsertObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didInsertObject object: Any, at path: IndexPath)
     {
         tableView.insertRows(at: [path], with: .fade)
     }
     
-    func controller(_ controller: FetchedResultsController, didDeleteObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didDeleteObject object: Any, at path: IndexPath)
     {
         tableView.deleteRows(at: [path], with: .fade)
     }
     
-    func controller(_ controller: FetchedResultsController, didUpdateObject object: AnyObject, atIndexPath path: IndexPath)
+    func controller(_ controller: FetchedResultsController, didUpdateObject object: Any, at path: IndexPath)
     {
         tableView.reloadRows(at: [path], with: .fade)
     }
     
-    func controller(_ controller: FetchedResultsController, didMoveObject object: AnyObject, atIndexPath: IndexPath, toIndexPath: IndexPath)
+    func controller(_ controller: FetchedResultsController, didMoveObject object: Any, at: IndexPath, to: IndexPath)
     {
-        debugPrint("\(self) did move: \(atIndexPath) -> \(toIndexPath)")
+        debugPrint("\(self) did move: \(at) -> \(to)")
         
-        tableView.deleteRows(at: [atIndexPath], with: .fade)
-        tableView.insertRows(at: [toIndexPath], with: .fade)
+        tableView.deleteRows(at: [at], with: .fade)
+        tableView.insertRows(at: [to], with: .fade)
     }
 }
-
-/*
-// MARK: - NSFetchedResultsControllerDelegate
-
-extension FetchedResultsTableViewController : NSFetchedResultsControllerDelegate
-{
-    public func controllerWillChangeContent(controller: NSFetchedResultsController)
-    {
-        debugPrint("\(self) will change")
-        if !ignoreControllerChanges
-        {
-            tableView.beginUpdates()
-        }
-    }
-    
-    public func controllerDidChangeContent(controller: NSFetchedResultsController)
-    {
-        debugPrint("\(self) did change")
-        if !ignoreControllerChanges
-        {
-            tableView.endUpdates()
-        }
-    }
-    
-    public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
-    {
-
-        if !ignoreControllerChanges
-        {
-            switch type
-            {
-            case .Insert:
-                
-                if let insertIndexPath = newIndexPath
-                {
-                    debugPrint("\(self) did insert: \(insertIndexPath)")
-                    tableView.insertRowsAtIndexPaths([insertIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-                }
-                
-            case .Delete:
-                
-                if let deleteIndexPath = indexPath
-                {
-                    debugPrint("\(self) did delete: \(deleteIndexPath)")
-                    tableView.deleteRowsAtIndexPaths([deleteIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-                }
-                
-            case .Update:
-                
-                if let updatedIndexPath = indexPath,
-                    let cell = self.tableView.cellForRowAtIndexPath(updatedIndexPath),
-                    let object = object(at: updatedIndexPath)
-                {
-                    debugPrint("\(self) did update: \(updatedIndexPath)")
-                    configureCell(cell, forObject: object, atIndexPath: updatedIndexPath)
-                }
-                
-            case .Move:
-                
-                if let deleteIndexPath = indexPath, let insertIndexPath = newIndexPath
-                {
-                    debugPrint("\(self) did move: \(deleteIndexPath) -> \(insertIndexPath)")
-                    
-                    tableView.deleteRowsAtIndexPaths([deleteIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-                    tableView.insertRowsAtIndexPaths([insertIndexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-                }
-            }
-        }
-    }
-    
-    public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
-    {
-        if !ignoreControllerChanges
-        {
-            let sectionIndexSet = NSIndexSet(index: sectionIndex)
-            
-            switch type
-            {
-            case .Insert:
-                tableView.insertSections(sectionIndexSet, withRowAnimation: .Fade)
-                
-            case .Delete:
-                tableView.deleteSections(sectionIndexSet, withRowAnimation: .Fade)
-                
-            default:
-                debugPrint("Odd change-type for section \(sectionIndex): \(type)")
-            }
-        }
-    }
-    
-    public func controller(controller: NSFetchedResultsController, sectionIndexTitleForSectionName sectionName: String) -> String?
-    {
-        return sectionName
-    }
-}
-*/
 
 // MARK: - Rearrange
 

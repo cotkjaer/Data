@@ -288,8 +288,8 @@
 				8FD41EB61C74AB6F00DDE89D /* NSFetchedResultsController.swift */,
 				8FD41EB31C74AB6F00DDE89D /* FetchedResultsTableViewController.swift */,
 				8FD41EB41C74AB6F00DDE89D /* FetchedResultsCollectionViewController.swift */,
-				8FD41EB71C74AB6F00DDE89D /* ManagedObjectDetailViewController.swift */,
 				8FA50D9F1CAD4435005D28B6 /* ManagedObjectsController.swift */,
+				8FD41EB71C74AB6F00DDE89D /* ManagedObjectDetailViewController.swift */,
 				8F46C2BD1DF6A97B003E4634 /* FetchedResultsController.swift */,
 				8FD41EAF1C74AB4D00DDE89D /* Supporting Files */,
 			);
