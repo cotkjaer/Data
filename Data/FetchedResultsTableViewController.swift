@@ -68,6 +68,15 @@ open class FetchedResultsTableViewController: UITableViewController, FetchedResu
         fetchedResultsController.fetch()
     }
     
+    
+    override open func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
+    
     // MARK: - UITableViewDataSource
     
     override open func numberOfSections(in tableView: UITableView) -> Int
