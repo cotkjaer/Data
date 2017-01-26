@@ -20,7 +20,6 @@ extension NSManagedObject
         return classNameComponents.last!
     }
     
-    
     public func deleteWithConfirmation(_ controller: UIViewController, completion: ((_ deleted:Bool, _ error: NSError?)->())?)
     {
         if //let realController = controller ?? UIApplication.topViewController(),

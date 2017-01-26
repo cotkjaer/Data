@@ -21,7 +21,7 @@ public protocol ManagedObjectDetailController: class
     
     ///NB! it is in a child context
     var managedObject: NSManagedObject? { get }
-
+    
     var managedObjectDetailControllerDelegate: ManagedObjectDetailControllerDelegate? { set get }
 }
 
