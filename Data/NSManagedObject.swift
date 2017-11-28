@@ -15,11 +15,11 @@ extension NSManagedObject
     /// entityName
     public class var entityName: String
     {
-        let fullClassName: String = NSStringFromClass(object_getClass(self))
+        let fullClassName: String = NSStringFromClass(object_getClass(self)!)
         let classNameComponents: [String] = fullClassName.components(separatedBy: ".")
         return classNameComponents.last!
     }
-    
+        
     public func deleteWithConfirmation(_ controller: UIViewController, completion: ((_ deleted:Bool, _ error: NSError?)->())?)
     {
         if //let realController = controller ?? UIApplication.topViewController(),
@@ -47,5 +47,16 @@ extension NSManagedObject
         {
             completion?(false, nil)
         }
+    }
+    
+    public convenience init?(in context: NSManagedObjectContext?)
+    {
+        guard let context = context else { return nil }
+
+        let name = type(of: self).entityName
+        
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: name, in: context) else { return nil }
+        
+        self.init(entity: entityDescription, insertInto: context)
     }
 }

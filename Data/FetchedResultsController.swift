@@ -76,21 +76,28 @@ internal class FetchedResultsController : NSObject
     }
     
     // MARK: - Objects
+
+    func object<O: NSManagedObject>(withId optionalObjectID: NSManagedObjectID?) -> O?
+    {
+        guard let id = optionalObjectID else { return nil }
+        
+        return fetchedResultsController?.fetchedObjects?.first(where: { $0.objectID == id && $0 is O }) as? O
+    }
+
     
     func object(with optionalObjectID: NSManagedObjectID?) -> NSManagedObject?
     {
         guard let id = optionalObjectID else { return nil }
   
-        return fetchedResultsController?.fetchedObjects?.find(condition: { $0.objectID == id })
+        return fetchedResultsController?.fetchedObjects?.first(where: { $0.objectID == id })
     }
 
-    func object(at optionalIndexPath: IndexPath?) -> NSManagedObject?
+    func object<O: NSManagedObject>(at optionalIndexPath: IndexPath?) -> O?
     {
         guard let indexPath = optionalIndexPath else { return nil }
         
-        return fetchedResultsController?.object(at: indexPath)
+        return fetchedResultsController?.object(at: indexPath) as? O
     }
-
     
     func indexPath(forObject optionalObject: NSManagedObject?) -> IndexPath?
     {

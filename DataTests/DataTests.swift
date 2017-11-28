@@ -8,8 +8,14 @@
 
 import XCTest
 import CoreData
-import Nimble
 @testable import Data
+
+//public extension Person
+//{
+//    var mom: Person? { return parents?.cast(Person.self).first(where: { $0.gender == 0 })}
+//
+//    var dad: Person? { return parents?.cast(Person.self).first(where: { $0.gender == 1 })}
+//}
 
 class DataTests: XCTestCase {
     
@@ -18,90 +24,89 @@ class DataTests: XCTestCase {
     override func setUp()
     {
         super.setUp()
-    
-        expect(expression: { self.context = try NSManagedObjectContext(modelName: "TestModel", inBundle: NSBundle(forClass: DataTests.self), storeType: .InMemory)}).to(beVoid())
+        
+        context = try! NSManagedObjectContext(modelName: "TestModel", inBundle: Bundle(for: DataTests.self), storeType: .inMemory)
     }
 
     func group(name: String) -> Group
     {
-        let group = context.insert(Group)
+        guard let group = Group(in: context) else { XCTFail("No group created"); fatalError() }
         
-        group?.name = name
+        group.name = name
+
+        XCTAssertEqual(group.name, name)
         
-        expect(group) != nil
-        
-        expect(group?.name) == name
-        
-        return group!
+        return group
     }
     
     func test_insert_group()
     {
-        expect(self.group("g")) != nil
+        XCTAssertNotNil(group(name: "g"))
     }
     
     func person(name: String) -> Person
     {
-        let person = context.insert(Person)
+        let person = Person(in: context)
         
         person?.name = name
-        
-        expect(person?.name) == name
 
+        XCTAssertEqual(person?.name, name)
+        
         return person!
     }
     
     func test_insert_person()
     {
-        let staff = group("staff")
+        let staff = group(name: "staff")
         
-        let jane = person("Jane")
-     
-        expect(staff.members).toNot(contain(jane))
+        let jane = person(name: "Jane")
 
+        XCTAssertEqual(staff.members?.contains(jane), false)
+        
         jane.group = staff
         
-        expect(staff.members).to(contain(jane))
-        
-        let joe = person("Joe")
-        
-        expect(staff.members).toNot(contain(joe))
+        XCTAssertEqual(staff.members?.contains(jane), true)
 
-        expect(staff.addMember(joe)) == true
+        let joe = person(name: "Joe")
+
+        XCTAssertEqual(staff.members?.contains(joe), false)
+
+        staff.addToMembers(joe)
         
-        expect(staff.members).to(contain(joe))
+        XCTAssertEqual(staff.members?.contains(joe), true)
     }
     
     func test_hierarchy()
     {
-        let dad = person("dad")
+        let dad = person(name: "dad")
         dad.gender = 1
         
-        let mom = person("mom")
+        let mom = person(name: "mom")
         mom.gender = 0
         
-        let son = person("son")
+        let son = person(name: "son")
         son.gender = 1
         
-        let sis = person("sis")
+        let sis = person(name: "sis")
         sis.gender = 0
         
-        mom.addChildrenObject(son)
-        mom.addChildrenObject(son)
-        mom.addChildrenObject(sis)
+        mom.addToChildren(son)
+        mom.addToChildren(son)
+        mom.addToChildren(sis)
         
-        expect(mom.children).to(contain(son,sis))
-        expect(mom.children?.count) == 2
+        XCTAssertEqual(mom.children?.count, 2)
         
-        dad.addChildren(mom.children!)
+        XCTAssertEqual(mom.children?.contains(son), true)
+        XCTAssertEqual(mom.children?.contains(sis), true)
+
+        dad.addToChildren(mom.children!)
         
-        expect(dad.children) == mom.children
-        
-        expect(mom.children).to(contain(son))
-        expect(son.parents).to(contain(mom))
-    
-        expect(sis.parents).to(contain(dad))
-        
-        expect(son.dad) == dad
+        XCTAssertEqual(mom.children, dad.children)
+
+        XCTAssertEqual(son.parents?.contains(dad), true)
+        XCTAssertEqual(son.parents?.contains(mom), true)
+        XCTAssertEqual(son.parents?.contains(sis), false)
+
+//        XCTAssertEqual(sis.dad, dad)
     }
 }

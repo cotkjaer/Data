@@ -34,7 +34,7 @@ public protocol ManagedObjectDetailControllerDelegate
 
 extension UINavigationController
 {
-    public var managedObjectDetailController: ManagedObjectDetailController? { return viewControllers.find(ManagedObjectDetailController.self) }
+    public var managedObjectDetailController: ManagedObjectDetailController? { return viewControllers.cast(ManagedObjectDetailViewController.self).first }
 }
 
 open class ManagedObjectDetailViewController: UIViewController, ManagedObjectDetailController

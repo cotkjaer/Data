@@ -7,4 +7,5 @@ framework module Error {
 
 module Error.Swift {
     header "Error-Swift.h"
+    requires objc
 }

@@ -233,7 +233,7 @@ extension FetchedResultsTableViewController
         tableView.addGestureRecognizer(longPress)
     }
     
-    func longPressGestureRecognized(_ longPress :UILongPressGestureRecognizer)
+    @objc func longPressGestureRecognized(_ longPress :UILongPressGestureRecognizer)
     {
         let location = longPress.location(in: tableView)
         
@@ -242,7 +242,7 @@ extension FetchedResultsTableViewController
         case .began:
             
             ignoreControllerChanges = true
-            if let indexPath = tableView.indexPathForLocation(location)
+            if let indexPath = tableView.path(forLocation: location)
                 , let cell = tableView.cellForRow(at: indexPath)
             {
                 sourceIndexPath = indexPath
@@ -281,7 +281,7 @@ extension FetchedResultsTableViewController
             
         case .changed:
             
-            if let indexPath = tableView.indexPathForLocation(location),
+            if let indexPath = tableView.path(forLocation: location),
                 let sourceIndexPath = self.sourceIndexPath,
                 let snapshot = self.snapshot,
                 let offset = draggingOffset

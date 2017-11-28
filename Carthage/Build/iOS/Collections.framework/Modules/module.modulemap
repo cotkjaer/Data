@@ -7,4 +7,5 @@ framework module Collections {
 
 module Collections.Swift {
     header "Collections-Swift.h"
+    requires objc
 }

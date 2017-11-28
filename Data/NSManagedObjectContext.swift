@@ -57,32 +57,25 @@ extension NSManagedObjectContext
     
     fileprivate func entityDescriptionFor<T: NSManagedObject>(_ type: T.Type) -> NSEntityDescription?
     {
-        guard let name = type.entity().name else { return nil }
-        
-        return NSEntityDescription.entity(forEntityName: name, in: self)
-/*
-        guard let entity = type.entity() else
-        
-        if let entityDescription = NSEntityDescription.entity(forEntityName: typeName(type), in: self)
-        {
-            return entityDescription
+        if #available(iOS 10.0, *) {
+            
+            if let name = type.entity().name
+            {
+                return NSEntityDescription.entity(forEntityName: name, in: self)
+            }
         }
-        
-        return nil
- */
-    }
-    
-    public func insert<T: NSManagedObject>(_ type: T.Type) -> T?
-    {
-        if let entityDescription = self.entityDescriptionFor(type)
+        else
         {
-            return T(entity: entityDescription, insertInto: self)
+            if let entityDescription = NSEntityDescription.entity(forEntityName: type.entityName, in: self)
+            {
+                return entityDescription
+            }
         }
         
         return nil
     }
     
-    fileprivate func executeFetchRequestLogErrors<R: NSFetchRequestResult, T: NSManagedObject>(_ request: NSFetchRequest<R>) -> [T]?
+    fileprivate func executeFetchRequestLogErrors<R, T: NSManagedObject>(_ request: NSFetchRequest<R>) -> [T]?
     {
         do
         {
@@ -135,7 +128,7 @@ extension NSManagedObjectContext
     public func any<T: NSManagedObject>(_ type: T.Type, predicate: NSPredicate? = nil) -> T?
     {
         let fetchRequest = NSFetchRequest<T>()
-        fetchRequest.entity = type.entity()// entityDescriptionFor(type)
+        fetchRequest.entity = entityDescriptionFor(type)
         fetchRequest.predicate = predicate //NSPredicate(value: true)
         fetchRequest.fetchLimit = 1
         
@@ -146,7 +139,7 @@ extension NSManagedObjectContext
     {
         let fetchRequest = NSFetchRequest<T>()
         
-        fetchRequest.entity = type.entity()//entityDescriptionFor(type)
+        fetchRequest.entity = entityDescriptionFor(type)
         fetchRequest.predicate = predicate // ?? NSPredicate(value: true)
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.fetchLimit = 1

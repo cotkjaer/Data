@@ -1,4 +1,4 @@
+github "cotkjaer/Collections"
 github "cotkjaer/File"
 github "cotkjaer/Error"
 github "cotkjaer/UserInterface"
-

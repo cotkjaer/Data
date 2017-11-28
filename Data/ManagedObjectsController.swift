@@ -36,7 +36,7 @@ extension ManagedObjectsController
             object = o
         }
         else if let cell = sender as? CV.Cell,
-            let indexPath = cellsView?.indexPathForCell(cell)
+            let indexPath = cellsView?.path(forCell: cell)
         {
             object = self.object(at: indexPath)
         }

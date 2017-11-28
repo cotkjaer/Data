@@ -12,7 +12,8 @@ import CoreData
 
 class CollectionViewController: FetchedResultsCollectionViewController
 {
-
+    @IBOutlet weak var addButton: UIBarButtonItem?
+    
     @IBAction func save(_ sender: UIBarButtonItem)
     {
         managedObjectContext?.saveWithAlert()
@@ -38,5 +39,18 @@ class CollectionViewController: FetchedResultsCollectionViewController
         guard let message = object as? Message, let cell = cell as? CollectionViewCell else { return }
         
         cell.textLabel?.text = message.text
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        super.prepare(for: segue, sender: sender)
+        
+        if let button = sender as? UIBarButtonItem, button == addButton, let detailController = segue.managedObjectDetailController as? ManagedObjectDetailViewController
+        {
+            detailController.managedObjectDetailControllerDelegate = self
+            detailController.managedObjectContext = managedObjectContext?.childContext()
+            
+            detailController.managedObject = Message(in: detailController.managedObjectContext)
+        }
     }
 }

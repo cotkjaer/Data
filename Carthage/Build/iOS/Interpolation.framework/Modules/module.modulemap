@@ -7,4 +7,5 @@ framework module Interpolation {
 
 module Interpolation.Swift {
     header "Interpolation-Swift.h"
+    requires objc
 }
